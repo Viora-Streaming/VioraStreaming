@@ -2,7 +2,6 @@ name: Commit Message Check
 
 on:
   pull_request:
-    branches: [ main ]
     types: [opened, synchronize, reopened]
 
 permissions:
@@ -10,8 +9,7 @@ permissions:
   pull-requests: read
 
 jobs:
-  commit-lint:
-    name: Commit Message Check
+  branch-name:
     runs-on: ubuntu-latest
 
     steps:
