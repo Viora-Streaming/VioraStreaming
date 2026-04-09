@@ -1,47 +1,32 @@
-name: Commit Message Check
+name: Check commit messages
+  uses: actions/github-script@v7
+  with:
+    script: |
+      const commits = await github.rest.pulls.listCommits({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        pull_number: context.issue.number
+      });
 
-on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+      const regex = /^(feat|fix|docs|refactor):/;
+      let failed = false;
 
-permissions:
-  contents: read
-  pull-requests: read
+      for (const commit of commits.data) {
+        const message = commit.commit.message.split('\n')[0];
 
-jobs:
-  branch-name:
-    runs-on: ubuntu-latest
+        if (message.startsWith("Merge ")) {
+          console.log(`Skipping merge commit: ${message}`);
+          continue;
+        }
 
-    steps:
-      - name: Check commit messages
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const commits = await github.rest.pulls.listCommits({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number
-            });
+        if (!regex.test(message)) {
+          core.error(`Invalid commit: ${message}`);
+          failed = true;
+        } else {
+          console.log(`Valid: ${message}`);
+        }
+      }
 
-            const regex = /^(feat|fix|docs|refactor):/;
-            let failed = false;
-
-            for (const commit of commits.data) {
-              const message = commit.commit.message.split('\n')[0];
-
- 	      if (message.startsWith("Merge ")) {
-    		console.log(`Skipping merge commit: ${message}`);
-    		continue;
-  	      }
-
-              if (!regex.test(message)) {
-                core.error(`Invalid commit: ${message}`);
-                failed = true;
-              } else {
-                console.log(`Valid: ${message}`);
-              }
-            }
-
-            if (failed) {
-              core.setFailed("Commit validation failed");
-            }
+      if (failed) {
+        core.setFailed("Commit validation failed");
+      }
