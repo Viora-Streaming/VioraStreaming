@@ -1,0 +1,19 @@
+services:
+  postgres_db:
+    image: postgres:17
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: viora_streaming_db
+      POSTGRES_USER: viora_streaming_user
+      POSTGRES_PASSWORD: viora_streaming_password
+    volumes:
+      - viora_streaming_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  viora_streaming_data:

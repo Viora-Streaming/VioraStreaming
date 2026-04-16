@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: viora-streaming-core
+  thymeleaf:
+    prefix: classpath:/templates/
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ${POSTGRES_USERNAME:viora_streaming_user}
+    password: ${POSTGRES_PASSWORD:viora_streaming_password}
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/viora_streaming_db}
+    hikari:
+      maximum-pool-size: 10
+      idle-timeout: 300000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      validation-timeout: 5000
+      leak-detection-threshold: 60000
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  mail:
+    host: smtp.sendgrid.net
+    port: 587
+    username: apikey
+    password:
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    sender:
+      app: "dobry9495@gmail.com"
+    test-connection: true
+
+jwt:
+  key: ${JWT_KEY:YzEyMzR0bXZxQzRmNTZ2cEFoUGVpMWdIajU3aWdoZ2g}
