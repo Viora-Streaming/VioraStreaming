@@ -24,7 +24,7 @@ public class SecurityConfigs {
         .authorizeHttpRequests(authorize -> {
           authorize.requestMatchers("/api/v1/accounts/register", "/api/v1/accounts/verify")
               .anonymous();
-          authorize.anyRequest().authenticated();
+          authorize.anyRequest().permitAll();
         });
 
     http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
