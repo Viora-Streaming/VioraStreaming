@@ -57,7 +57,7 @@ export default function LoginForm({onSubmit, isLoading, error, onCreateAccount}:
                           label="Email"
                           placeholder="name@company.com"
                           type='email'
-                          error={{message: fieldState?.error?.message}}
+                          error={fieldState.error}
                       />
                   )}
               />
@@ -75,7 +75,7 @@ export default function LoginForm({onSubmit, isLoading, error, onCreateAccount}:
                           fullWidth
                           type="password"
                           label="Password"
-                          error={{message: fieldState?.error?.message}}
+                          error={fieldState.error}
                       />
                   )}
               />
