@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Viora Notification</title>
+</head>
+
+<body style="margin:0; padding:0; background-color:#0b0b12; font-family:Arial, sans-serif;">
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"
+       style="padding:40px 0; background-color:#0b0b12;">
+  <tr>
+    <td align="center">
+
+      <table width="420" cellpadding="0" cellspacing="0" border="0"
+             style="background-color:#12121a; border-radius:12px; padding:32px;">
+
+        <tr>
+          <td align="center" style="padding-bottom:24px;">
+            <span style="
+              font-size:32px;
+              font-weight:bold;
+              background:linear-gradient(90deg,#7c3aed,#9333ea);
+              -webkit-background-clip:text;
+              -webkit-text-fill-color:transparent;
+              display:inline-block;
+            ">
+              Viora
+            </span>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="color:#e5e7eb; font-size:15px; line-height:1.6;">
+            <div style="text-align:center;">
+
+              <h2 style="color:#ffffff; margin-bottom:16px;">
+                Confirm your action
+              </h2>
+
+              <p style="color:#9ca3af; margin-bottom:24px;">
+                Click the button below to proceed.
+              </p>
+
+              <a th:if="${actionUrl != null}"
+                 th:href="${actionUrl}"
+                 style="
+                   display:inline-block;
+                   padding:12px 24px;
+                   border-radius:8px;
+                   background:linear-gradient(90deg,#7c3aed,#9333ea);
+                   color:#ffffff;
+                   text-decoration:none;
+                   font-weight:bold;
+                   font-size:14px;">
+                <span th:text="${actionText}">Confirm</span>
+              </a>
+
+            </div>
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td align="center" style="padding-top:24px; font-size:12px; color:#6b7280;">
+            © Viora • If you didn’t request this, ignore this email
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
