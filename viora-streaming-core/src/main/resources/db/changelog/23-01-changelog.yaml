@@ -1,0 +1,363 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1776947970237-1
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 50
+            sequenceName: accounts_seq
+            startValue: 1
+  - changeSet:
+      id: 1776947970237-2
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 50
+            sequenceName: actors_seq
+            startValue: 1
+  - changeSet:
+      id: 1776947970237-3
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 50
+            sequenceName: movies_seq
+            startValue: 1
+  - changeSet:
+      id: 1776947970237-4
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 50
+            sequenceName: writers_seq
+            startValue: 1
+  - changeSet:
+      id: 1776947970237-5
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_accounts
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: login
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: password
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: enabled
+                  type: BOOLEAN
+            tableName: accounts
+  - changeSet:
+      id: 1776947970237-6
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_actors
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: photo
+                  type: VARCHAR(255)
+            tableName: actors
+  - changeSet:
+      id: 1776947970237-7
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_directors
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: photo
+                  type: VARCHAR(255)
+            tableName: directors
+  - changeSet:
+      id: 1776947970237-8
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_genres
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(255)
+            tableName: genres
+  - changeSet:
+      id: 1776947970237-9
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_movie_actors
+                  name: actor_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_movie_actors
+                  name: movie_id
+                  type: BIGINT
+            tableName: movie_actors
+  - changeSet:
+      id: 1776947970237-10
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_movie_genres
+                  name: genre_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_movie_genres
+                  name: movie_id
+                  type: BIGINT
+            tableName: movie_genres
+  - changeSet:
+      id: 1776947970237-11
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_movies
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: title
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: plot
+                  type: TEXT
+              - column:
+                  name: synopsis
+                  type: TEXT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: poster
+                  type: TEXT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: rated
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: rating
+                  type: FLOAT
+              - column:
+                  name: video_url
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: release_date
+                  type: DATE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: duration_in_minutes
+                  type: BIGINT
+              - column:
+                  name: director_id
+                  type: BIGINT
+              - column:
+                  name: writer_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: imdb_id
+                  type: VARCHAR(255)
+            tableName: movies
+  - changeSet:
+      id: 1776947970237-12
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_writers
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: photo
+                  type: VARCHAR(255)
+            tableName: writers
+  - changeSet:
+      id: 1776947970237-13
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: login
+            constraintName: uc_accounts_login
+            tableName: accounts
+  - changeSet:
+      id: 1776947970237-14
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: name
+            constraintName: uc_genres_name
+            tableName: genres
+  - changeSet:
+      id: 1776947970237-15
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: imdb_id
+            constraintName: uc_movies_imdbid
+            tableName: movies
+  - changeSet:
+      id: 1776947970237-16
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: director_id
+            baseTableName: movies
+            constraintName: FK_MOVIES_ON_DIRECTOR
+            referencedColumnNames: id
+            referencedTableName: directors
+  - changeSet:
+      id: 1776947970237-17
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: writer_id
+            baseTableName: movies
+            constraintName: FK_MOVIES_ON_WRITER
+            referencedColumnNames: id
+            referencedTableName: writers
+  - changeSet:
+      id: 1776947970237-18
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: actor_id
+            baseTableName: movie_actors
+            constraintName: fk_movact_on_actor
+            referencedColumnNames: id
+            referencedTableName: actors
+  - changeSet:
+      id: 1776947970237-19
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: movie_id
+            baseTableName: movie_actors
+            constraintName: fk_movact_on_movie
+            referencedColumnNames: id
+            referencedTableName: movies
+  - changeSet:
+      id: 1776947970237-20
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: genre_id
+            baseTableName: movie_genres
+            constraintName: fk_movgen_on_genre
+            referencedColumnNames: id
+            referencedTableName: genres
+  - changeSet:
+      id: 1776947970237-21
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: movie_id
+            baseTableName: movie_genres
+            constraintName: fk_movgen_on_movie
+            referencedColumnNames: id
+            referencedTableName: movies
+

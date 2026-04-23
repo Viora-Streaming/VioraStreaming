@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-test-data
+      author: volodymyr.dobrianskyi
+      changes:
+        - sqlFile:
+            path: db/dummy_data_sql/accounts.sql
+            relativeToChangelogFile: false
+            splitStatements: true
+            stripComments: true
+
+        - sqlFile:
+            path: db/dummy_data_sql/actors.sql
+            relativeToChangelogFile: false
+            splitStatements: true
+            stripComments: true
+
+        - sqlFile:
+            path: db/dummy_data_sql/directors.sql
+            relativeToChangelogFile: false
+            splitStatements: true
+            stripComments: true
+
+        - sqlFile:
+            path: db/dummy_data_sql/genres.sql
+            relativeToChangelogFile: false
+            splitStatements: true
+            stripComments: true
+
+        - sqlFile:
+            path: db/dummy_data_sql/writers.sql
+            relativeToChangelogFile: false
+            splitStatements: true
+            stripComments: true
+
+        - sqlFile:
+            path: db/dummy_data_sql/movies.sql
+            relativeToChangelogFile: false
+            splitStatements: true
+            stripComments: true
+
+        - sqlFile:
+            path: db/dummy_data_sql/movie_genres.sql
+            relativeToChangelogFile: false
+            splitStatements: true
+            stripComments: true
+
+        - sqlFile:
+            path: db/dummy_data_sql/movie_actors.sql
+            relativeToChangelogFile: false
+            splitStatements: true
+            stripComments: true
