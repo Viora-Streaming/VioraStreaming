@@ -54,5 +54,5 @@ client:
   callback-url: ${CLIENT_CALLBACK_URL:http://localhost:80/movies}
 
 server:
-  port: {SPRING_APP_PORT:8080}
-  host: {SPRING_APP_HOST:localhost}
+  port: ${SPRING_APP_PORT:8080}
+  host: ${SPRING_APP_HOST:localhost}
