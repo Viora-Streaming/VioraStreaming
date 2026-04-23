@@ -35,6 +35,19 @@ spring:
       app: ${GRID_SENDER:dobry9495@gmail.com}
     test-connection: true
 
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,trace
+
+logging:
+  pattern:
+    level: "%5p [traceId=%X{traceId}, spanId=%X{spanId}]"
+
 jwt:
   key: ${JWT_KEY:YzEyMzR0bXZxQzRmNTZ2cEFoUGVpMWdIajU3aWdoZ2g}
 client:
