@@ -1,7 +1,7 @@
 package org.viora.viorastreamingcore.account.service;
 
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.viora.viorastreamingcore.account.dto.Account;
 import org.viora.viorastreamingcore.account.exception.AccountAlreadyVerifiedException;
@@ -13,14 +13,21 @@ import org.viora.viorastreamingcore.mail.messages.VerifyEmailMessage;
 import org.viora.viorastreamingcore.mail.services.MailService;
 
 @Service
-@RequiredArgsConstructor
 public class VerificationUserService implements VerifyUserAccountUseCase {
 
-  private static final String REDIRECT_URL = "http://localhost:8080/api/v1/accounts/verify?token=";
-
+  private final String redirectUrl;
   private final AccountRepository accountRepository;
   private final JwtTokenService jwtTokenService;
   private final MailService mailService;
+
+  public VerificationUserService(AccountRepository accountRepository,
+      JwtTokenService jwtTokenService, MailService mailService,
+      @Value("${server.host}") String host, @Value("${server.port}") String port) {
+    this.accountRepository = accountRepository;
+    this.jwtTokenService = jwtTokenService;
+    this.mailService = mailService;
+    this.redirectUrl = String.format("http://%s:%s/api/v1/accounts/verify?token=", host, port);
+  }
 
   @Transactional
   @Override
@@ -40,7 +47,7 @@ public class VerificationUserService implements VerifyUserAccountUseCase {
   @Override
   public void sendVerificationForAccount(Account account) {
     String token = jwtTokenService.generateToken(account);
-    String url = REDIRECT_URL + token;
+    String url = redirectUrl + token;
     try {
       mailService.sendEmail(account.getUsername(), new VerifyEmailMessage(url));
     } catch (Exception e) {

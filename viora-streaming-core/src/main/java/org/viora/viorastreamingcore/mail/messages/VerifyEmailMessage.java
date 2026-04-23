@@ -1,7 +1,9 @@
 package org.viora.viorastreamingcore.mail.messages;
 
+import lombok.Getter;
 import org.thymeleaf.context.Context;
 
+@Getter
 public class VerifyEmailMessage extends EmailMessage {
 
   private static final String DEFAULT_ACTION_TEXT = "Confirm";
