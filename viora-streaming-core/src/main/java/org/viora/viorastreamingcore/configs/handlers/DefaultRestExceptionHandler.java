@@ -27,7 +27,7 @@ public class DefaultRestExceptionHandler {
   }
 
   @ExceptionHandler(EntityConflictException.class)
-  public ResponseEntity<ApiError> handleEntityConflictException(EntityNotFoundException ex) {
+  public ResponseEntity<ApiError> handleEntityConflictException(EntityConflictException ex) {
     log.debug("Conflict: {}", ex.getMessage());
     return ResponseEntity.status(HttpStatus.CONFLICT)
         .body(new ApiError(LocalDateTime.now(), 409, ex.getMessage()));

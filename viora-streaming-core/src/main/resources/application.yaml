@@ -5,9 +5,9 @@ spring:
     prefix: classpath:/templates/
   datasource:
     driver-class-name: org.postgresql.Driver
-    username: ${POSTGRES_USERNAME:viora_streaming_user}
-    password: ${POSTGRES_PASSWORD:viora_streaming_password}
-    url: jdbc:postgresql://${POSTGRES_URL:localhost:5432/viora_streaming_db}
+    username: ${SPRING_DATASOURCE_USERNAME:viora_streaming_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:viora_streaming_password}
+    url: jdbc:postgresql://${SPRING_DATASOURCE_URL:localhost:5432/viora_streaming_db}
     hikari:
       maximum-pool-size: 10
       idle-timeout: 300000
@@ -51,7 +51,7 @@ logging:
 jwt:
   key: ${JWT_KEY:YzEyMzR0bXZxQzRmNTZ2cEFoUGVpMWdIajU3aWdoZ2g}
 client:
-  callback-url: ${CLIENT_CALLBACK_URL:http://localhost:80/movies}
+  callback-url: ${CLIENT_CALLBACK_URL:http://localhost/movies}
 
 server:
   port: ${SPRING_APP_PORT:8080}

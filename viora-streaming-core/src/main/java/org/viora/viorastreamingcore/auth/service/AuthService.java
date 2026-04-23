@@ -21,7 +21,7 @@ public class AuthService implements LoginUserUseCase {
 
   @Override
   public LoginUserResponse loginUser(LoginUserRequest request) {
-    UserDetails account = userDetailsService.loadUserByUsername(request.login());
+    UserDetails account = userDetailsService.loadUserByUsername(request.email());
     if (!passwordEncoder.matches(request.password(), account.getPassword())) {
       throw new InvalidCredentialsException("Invalid credentials");
     }
