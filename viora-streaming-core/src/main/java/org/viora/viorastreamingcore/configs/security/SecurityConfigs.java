@@ -29,6 +29,7 @@ public class SecurityConfigs {
         .authorizeHttpRequests(authorize -> {
           authorize.requestMatchers("/api/v1/accounts/register", "/api/v1/accounts/verify", "/api/v1/auth")
               .anonymous();
+          authorize.requestMatchers("/actuator", "/actuator/*").permitAll();
           authorize.anyRequest().authenticated();
         });
 
