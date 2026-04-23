@@ -7,6 +7,11 @@ import {useTheme} from "@mui/material/styles";
 
 
 export function EmailVerificationModal({data, onClose}: ModalProps) {
+  const modalData = data as {
+    description: string;
+    onBtnClick: () => void;
+    isLoading: boolean;
+  };
   const theme = useTheme();
 
   return (
@@ -22,7 +27,7 @@ export function EmailVerificationModal({data, onClose}: ModalProps) {
           <Box sx={{
             height: "64px",
             width: "64px",
-            backgroundColor: theme.palette.customColors.iconBoxBg,
+            backgroundColor: "#2A2A2C",
             borderRadius: "12px",
             display: "flex",
             justifyContent: "center",
@@ -40,14 +45,14 @@ export function EmailVerificationModal({data, onClose}: ModalProps) {
           </Typography>
 
           <Typography variant="body1" color={"text.primary"} align="center">
-            {data.description}
+            {modalData.description}
           </Typography>
 
         </DialogContent>
 
         <DialogActions>
-          <VioraButton onClick={data.onBtnClick} name={"Send Again"} type={"button"}
-                       loading={data.isLoading}/>
+          <VioraButton onClick={modalData.onBtnClick} name={"Send Again"} type={"button"}
+                       loading={modalData.isLoading}/>
         </DialogActions>
       </Modal>
   )

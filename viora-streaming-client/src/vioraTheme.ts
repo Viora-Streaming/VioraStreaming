@@ -36,9 +36,6 @@ export const vioraTheme = createTheme({
     },
     success: {
       main: "#22C55E"
-    },
-    customColors: {
-      iconBoxBg: "#2A2A2C",
-    },
+    }
   },
 });

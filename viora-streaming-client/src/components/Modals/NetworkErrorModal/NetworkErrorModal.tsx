@@ -3,10 +3,11 @@ import {Box, DialogActions, DialogContent, Typography} from "@mui/material";
 import {Modal} from "../Modal/Modal.tsx";
 import {VioraButton} from "../../Button/VioraButton.tsx";
 import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
-import {useTheme} from "@mui/material/styles";
 
 export function NetworkErrorModal({data, onClose}: ModalProps) {
-  const theme = useTheme();
+  const modalData = data as {
+    message: string;
+  }
 
   return (
       <Modal onClose={onClose}>
@@ -21,7 +22,7 @@ export function NetworkErrorModal({data, onClose}: ModalProps) {
           <Box sx={{
             height: "64px",
             width: "64px",
-            backgroundColor: theme.palette.customColors.iconBoxBg,
+            backgroundColor: "#2A2A2C",
             borderRadius: "12px",
             display: "flex",
             justifyContent: "center",
@@ -40,7 +41,7 @@ export function NetworkErrorModal({data, onClose}: ModalProps) {
           </Typography>
 
           <Typography variant="body1" color={"text.primary"} align="center">
-            {data.message}
+            {modalData.message}
           </Typography>
 
         </DialogContent>

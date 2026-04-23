@@ -8,7 +8,6 @@ type VioraButtonProps = {
 };
 
 export function VioraButton({name, onClick, type = 'submit', loading = false}: VioraButtonProps) {
-
   return (
       <Button
           type={type}
@@ -44,9 +43,9 @@ export function VioraButton({name, onClick, type = 'submit', loading = false}: V
             },
           }}>
         {loading ? (
-            <Stack display="flex" alignItems="center" spacing={"15px"} direction={"row"}>
-              <CircularProgress size={20}  color={"text.secondary"} sx={{display: 'block'}}/>
-              <Typography variant={"body2"} >
+            <Stack spacing="15px" direction="row">
+              <CircularProgress size={20}  color='secondary' sx={{display: 'block'}}/>
+              <Typography variant="body2" >
                 {name}
               </Typography>
             </Stack>

@@ -6,7 +6,7 @@ type CustomFieldProps = {
   label: string;
   placeholder?: string;
   error?: {
-    message: string;
+    message?: string;
   };
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -20,7 +20,7 @@ export const CustomField = forwardRef<HTMLInputElement, CustomFieldProps>(
     ({label, placeholder, error, value, onChange, onBlur, name, fullWidth, type = 'text'}, ref) => {
       return (
           <Box sx={{
-            width: fullWidth ?? "400px"
+            width: fullWidth ? "400px" : "100%",
           }}>
             <Typography
                 variant="body2"

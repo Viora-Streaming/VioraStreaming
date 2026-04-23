@@ -13,6 +13,7 @@ import {openModal} from "../store/modals.ts";
 import {ModalTypes} from "../types/modalTypes.ts";
 import {AUTH_CONSTANTS} from "../constants/authConstants.ts";
 import {nanoid} from "@reduxjs/toolkit";
+import {API_PAGE} from "../constants/routingConstants.ts";
 
 
 export function useLogin() {
@@ -24,7 +25,7 @@ export function useLogin() {
 
     onSuccess(data) {
       dispatch(setCredentials({token: data.token}));
-      navigate('/home');
+      navigate(API_PAGE.Home);
     }
   });
 }

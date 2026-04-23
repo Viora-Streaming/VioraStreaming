@@ -1,8 +1,8 @@
-import type {Router as RemixRouter} from '@remix-run/router/dist/router';
 import {RouterProvider} from "react-router-dom";
+import type {createBrowserRouter} from "react-router";
 
 type AppLoaderProps = {
-  router: RemixRouter;
+  router: ReturnType<typeof createBrowserRouter>;
 }
 
 export function AppLoader({router}: AppLoaderProps) {

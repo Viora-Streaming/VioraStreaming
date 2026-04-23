@@ -3,7 +3,6 @@ import LoginForm from "./subcomponents/LoginForm.tsx";
 import {useLogin} from "../../hooks/authHooks.ts";
 import type {LoginPayload} from "../../api/authApi.ts";
 import {useNavigate} from 'react-router-dom'
-import {API_PAGE} from "../../constants/routingConstants.ts";
 
 export default function WelcomePage() {
   const navigate = useNavigate()
@@ -15,7 +14,7 @@ export default function WelcomePage() {
 
   return (
       <WelcomePageContainer>
-        <LoginForm onSubmit={data => onSubmit({login: data.email, password: data.password})}
+        <LoginForm onSubmit={data => onSubmit({email: data.email, password: data.password})}
                    isLoading={isPending} error={isError ? error?.message : undefined}
                    onCreateAccount={() => navigate('/auth/register')}
         />

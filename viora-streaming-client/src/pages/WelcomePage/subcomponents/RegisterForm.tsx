@@ -92,7 +92,7 @@ export function RegisterForm({onSubmit, isLoading, error, onSignIn}: RegisterFor
               />
 
               <Controller
-                  name="Confirm Password"
+                  name="confirmPassword"
                   control={control}
                   defaultValue=""
                   rules={{

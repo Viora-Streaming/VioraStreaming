@@ -1,4 +1,4 @@
-import {Box, LinearProgress, Stack, Typography} from "@mui/material";
+import {LinearProgress, Stack, Typography} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 
 type RulesLinearProgressProps = {
@@ -11,8 +11,8 @@ export function RulesLinearProgress({rules, fullFilled, message}: RulesLinearPro
   const theme = useTheme();
 
   return (
-      <Stack spacing={"5px"}>
-        <Stack spacing={"8px"} direction={"row"}>
+      <Stack spacing="5px">
+        <Stack spacing="8px" direction="row">
           {Array.from({length: rules}).map((_, i) => (
               <LinearProgress
                   key={i}
@@ -30,7 +30,7 @@ export function RulesLinearProgress({rules, fullFilled, message}: RulesLinearPro
           ))}
         </Stack>
         {message && (
-            <Typography color={"textDisabled"} variant={"subtitle2"}>
+            <Typography color={"textDisabled"} variant="subtitle2">
               {message}
             </Typography>
         )}
