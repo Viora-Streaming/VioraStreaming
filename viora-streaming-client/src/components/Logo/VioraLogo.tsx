@@ -1,15 +1,22 @@
-import {Typography} from "@mui/material";
+import { Typography, type TypographyProps } from "@mui/material";
 
-export function VioraLogo() {
+interface VioraLogoProps extends TypographyProps {
+  fontSize?: string | number;
+}
+
+export function VioraLogo({variant = "h1", fontSize, sx, ...props}: VioraLogoProps) {
   return (
       <Typography
-          variant="h1"
+          variant={variant}
+          {...props}
           sx={{
             color: "primary.main",
-            fontWeight: 800
+            fontWeight: 800,
+            ...{ fontSize },
+            ...sx,
           }}
       >
         Viora
       </Typography>
-  )
+  );
 }

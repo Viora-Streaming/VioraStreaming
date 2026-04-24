@@ -11,6 +11,7 @@ export function FormContainer(props: FormContainerProps) {
         borderRadius: "12px",
         bgcolor: "background.paper",
         boxShadow: "20px 20px 50px 0 rgba(130, 87, 229, 0.5)",
+        maxWidth: "480px",
       }}>
         {props.children}
       </Box>
