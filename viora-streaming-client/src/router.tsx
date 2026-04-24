@@ -4,6 +4,8 @@ import {WelcomePageChildRoutes} from "./pages/WelcomePage/WelcomePage.routes.tsx
 import {AnonRoute} from "./router/AnonRoute.tsx";
 import {Navigate} from "react-router-dom";
 import ProtectedRoute from "./router/ProtectedRoute.tsx";
+import {HomePageChildRoutes} from "./pages/HomePage/HomePage.routes.tsx";
+import {MoviesPageChildRoutes} from "./pages/MoviesPage/MoviesPage.routes.tsx";
 
 export const routes: RouteObject[] = [
   {
@@ -16,7 +18,17 @@ export const routes: RouteObject[] = [
     children: WelcomePageChildRoutes,
   },
   {
-    element: <ProtectedRoute />
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: API_PAGE.Movies,
+        children: MoviesPageChildRoutes,
+      },
+      {
+        path: API_PAGE.Home,
+        children: HomePageChildRoutes,
+      },
+    ]
   }
 ]
 

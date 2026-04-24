@@ -27,7 +27,7 @@ export function App() {
               </QueryClientProvider>
             </Provider>
           </ThemeProvider>
-        </StrictMode>,
+        </StrictMode>
       </>
   )
 }
