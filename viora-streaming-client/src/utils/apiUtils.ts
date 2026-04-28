@@ -1,5 +1,7 @@
 const API_BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:8080'
 
+const getToken = () => localStorage.getItem("JWT_TOKEN");
+
 export class ApiError extends Error {
   public status: number;
   constructor(status: number, message: string) {
@@ -10,7 +12,19 @@ export class ApiError extends Error {
 
 export async function apiFetch(url: string, options?: RequestInit) {
   const fullUrl = `${API_BASE}${url}`;
-  const res = await fetch(fullUrl, options);
+  const token = getToken();
+
+  const existingHeaders = options?.headers instanceof Headers
+      ? Object.fromEntries(options.headers.entries())
+      : (options?.headers as Record<string, string> ?? {});
+
+  const res = await fetch(fullUrl, {
+    ...options,
+    headers: {
+      ...existingHeaders,
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+  });
 
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));

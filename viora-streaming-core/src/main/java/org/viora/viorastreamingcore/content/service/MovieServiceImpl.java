@@ -43,7 +43,7 @@ public class MovieServiceImpl implements MovieService {
   }
 
   private MovieSummary mapToMovieSummary(Movie m) {
-    return new MovieSummary(m.getTitle(), m.getPoster(), m.getReleaseDate(),
+    return new MovieSummary(m.getId(), m.getTitle(), m.getPoster(), m.getReleaseDate(),
         m.getGenres().stream().map(genre -> new GenreDto(genre.getId(), genre.getName()))
             .collect(Collectors.toSet()));
   }
