@@ -43,8 +43,14 @@ public class MovieServiceImpl implements MovieService {
   }
 
   private MovieSummary mapToMovieSummary(Movie m) {
-    return new MovieSummary(m.getId(), m.getTitle(), m.getPoster(), m.getReleaseDate(),
-        m.getGenres().stream().map(genre -> new GenreDto(genre.getId(), genre.getName()))
-            .collect(Collectors.toSet()));
+    return MovieSummary.builder()
+        .id(m.getId())
+        .title(m.getTitle())
+        .poster(m.getPoster())
+        .releaseDate(m.getReleaseDate())
+        .genres(m.getGenres().stream().map(genre -> new GenreDto(genre.getId(), genre.getName()))
+            .collect(Collectors.toSet()))
+        .rating(m.getRating())
+        .build();
   }
 }

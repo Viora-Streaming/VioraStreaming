@@ -7,6 +7,7 @@ import org.viora.viorastreamingcore.content.dto.Duration;
 import org.viora.viorastreamingcore.content.dto.MovieFilter;
 import org.viora.viorastreamingcore.content.model.Genre;
 import org.viora.viorastreamingcore.content.model.Movie;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -34,9 +35,12 @@ public class MovieSpecification {
         rating == null ? null : cb.greaterThan(root.get("rating"), rating);
   }
 
-  public static Specification<Movie> hasReleaseDate(String releaseDate) {
-    return (root, query, cb) ->
-        releaseDate == null ? null : cb.greaterThan(root.get("releaseDate"), releaseDate);
+  public static Specification<Movie> hasReleaseYear(Integer year) {
+    return (root, query, cb) -> {
+      if (year == null) return null;
+      LocalDate from = LocalDate.of(year, 1, 1);
+      return cb.greaterThanOrEqualTo(root.get("releaseDate"), from);
+    };
   }
 
   public static Specification<Movie> hasDurationBetween(Duration duration) {
@@ -50,7 +54,7 @@ public class MovieSpecification {
         hasTitle(filter.search()),
         hasGenres(filter.genresIds()),
         hasRating(filter.rating()),
-        hasReleaseDate(filter.releaseYear()),
+        hasReleaseYear(filter.releaseYear()),
         hasDurationBetween(filter.duration())
     );
     return Specification.allOf(specs);

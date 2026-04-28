@@ -6,7 +6,7 @@ public record MovieFilter(
     String search,
     Set<Long> genresIds,
     Float rating,
-    String releaseYear,
+    Integer releaseYear,
     Duration duration
 ) {
 
