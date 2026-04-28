@@ -7,7 +7,7 @@ public record MovieSummary(
     String title,
     String poster,
     LocalDate releaseDate,
-    Set<String> genres
+    Set<GenreDto> genres
 ) {
 
 }

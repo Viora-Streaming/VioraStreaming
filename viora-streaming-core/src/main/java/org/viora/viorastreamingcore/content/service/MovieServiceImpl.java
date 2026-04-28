@@ -5,8 +5,11 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.viora.viorastreamingcore.content.dto.GenreDto;
 import org.viora.viorastreamingcore.content.dto.MovieDto;
+import org.viora.viorastreamingcore.content.dto.MovieFilter;
 import org.viora.viorastreamingcore.content.dto.MovieSummary;
 import org.viora.viorastreamingcore.content.exception.MovieNotFoundException;
 import org.viora.viorastreamingcore.content.model.Genre;
@@ -19,6 +22,12 @@ public class MovieServiceImpl implements MovieService {
 
   private final MovieRepository movieRepository;
   private final ObjectMapper objectMapper;
+
+  @Override
+  public Page<MovieSummary> searchMovies(MovieFilter filter, Pageable pageable) {
+    Specification<Movie> spec = MovieSpecification.buildSpecification(filter);
+    return movieRepository.findAll(spec, pageable).map(this::mapToMovieSummary);
+  }
 
   @Override
   public Page<MovieSummary> getMovies(Pageable pageable) {
@@ -35,6 +44,7 @@ public class MovieServiceImpl implements MovieService {
 
   private MovieSummary mapToMovieSummary(Movie m) {
     return new MovieSummary(m.getTitle(), m.getPoster(), m.getReleaseDate(),
-        m.getGenres().stream().map(Genre::getName).collect(Collectors.toSet()));
+        m.getGenres().stream().map(genre -> new GenreDto(genre.getId(), genre.getName()))
+            .collect(Collectors.toSet()));
   }
 }
