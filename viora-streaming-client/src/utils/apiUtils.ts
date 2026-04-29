@@ -43,3 +43,22 @@ export async function apiPostWithoutResult(url: string, options?: RequestInit) {
     throw new ApiError(res.status, body.message ?? "Request failed");
   }
 }
+
+export function makeQueryFromProps<T extends Record<string, any>>(params: T): string {
+  const query = new URLSearchParams();
+
+  function flatten(obj: Record<string, any>, prefix = "") {
+    Object.entries(obj).forEach(([key, value]) => {
+      if (value === undefined || value === null) return;
+      const fullKey = prefix ? `${prefix}.${key}` : key;
+      if (typeof value === "object" && !Array.isArray(value)) {
+        flatten(value, fullKey);
+      } else {
+        query.append(fullKey, String(value));
+      }
+    });
+  }
+
+  flatten(params);
+  return query.toString();
+}

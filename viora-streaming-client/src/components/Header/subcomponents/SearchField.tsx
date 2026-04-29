@@ -1,7 +1,11 @@
-import { Box, InputBase } from "@mui/material";
+import {Box, InputBase} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-export function SearchField() {
+export type SearchFieldProps = {
+  onSearch: (query: string) => void;
+};
+
+export function SearchField({onSearch}: SearchFieldProps) {
   return (
       <Box
           sx={{
@@ -15,7 +19,7 @@ export function SearchField() {
             maxWidth: "700px",
           }}
       >
-        <SearchIcon sx={{ color: "text.secondary", mr: "12px" }} />
+        <SearchIcon sx={{color: "text.secondary", mr: "12px"}}/>
         <InputBase
             placeholder="Search movies, genres..."
             fullWidth
@@ -27,6 +31,7 @@ export function SearchField() {
                 opacity: 1,
               },
             }}
+            onChange={(e) => onSearch(e.target.value)}
         />
       </Box>
   );
