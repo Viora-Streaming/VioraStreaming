@@ -11,15 +11,15 @@ export const LIST_OF_DURATION = [
   ANY_DURATION,
   DEFAULT_DURATION,
   MAX_DURATION,
-];
+] as const;
 
-export const DURATION_VALUE_MAP: { [key: string]: Duration } = {
-  ANY_DURATION: {},
-  DEFAULT_DURATION: {
+export const DURATION_VALUE_MAP: Record<string, Duration> = {
+  [ANY_DURATION]: {},
+  [DEFAULT_DURATION]: {
     from: 90,
     to: 120,
   },
-  MAX_DURATION: {
+  [MAX_DURATION]: {
     from: 120
   },
 }

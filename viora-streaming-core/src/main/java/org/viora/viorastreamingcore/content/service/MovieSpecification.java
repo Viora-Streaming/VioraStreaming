@@ -48,13 +48,14 @@ public class MovieSpecification {
   }
 
   public static Specification<Movie> hasDurationBetween(Duration duration) {
-    if (duration == null) {
-      return null;
-    }
-    Integer from = duration.from() == null ? 0 : duration.from();
-    Integer to = duration.to() == null ? 10000 : duration.to();
-    return (root, query, cb) ->
-        cb.between(root.get("durationInMinutes"), from, to);
+    return (root, query, cb) -> {
+      if (duration == null) {
+        return null;
+      }
+      Integer from = duration.from() == null ? 0 : duration.from();
+      Integer to = duration.to() == null ? 10000 : duration.to();
+      return cb.between(root.get("durationInMinutes"), from, to);
+    };
   }
 
   public static Specification<Movie> buildSpecification(MovieFilter filter) {
@@ -62,8 +63,8 @@ public class MovieSpecification {
         hasTitle(filter.search()),
         hasGenres(filter.genresIds()),
         hasRating(filter.rating()),
-        hasReleaseYear(filter.releaseYear())
-//        hasDurationBetween(filter.duration())
+        hasReleaseYear(filter.releaseYear()),
+        hasDurationBetween(filter.duration())
     );
     return Specification.allOf(specs);
   }

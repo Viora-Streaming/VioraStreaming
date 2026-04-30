@@ -1,11 +1,14 @@
-import {Box, Chip, Grid, Typography} from "@mui/material";
+import {Box, Chip, Grid, Stack, Typography} from "@mui/material";
 import type {MovieSummary} from "../../../types/movieTypes.ts";
+import {useTheme} from "@mui/material/styles";
 
 type MoviesProps = {
   movies: MovieSummary[]
 }
 
 export function Movies({movies}: MoviesProps) {
+  const theme = useTheme();
+
   return (
       <Grid container spacing={3}>
         {movies.map((movie) => (
@@ -13,19 +16,14 @@ export function Movies({movies}: MoviesProps) {
               <Box
                   sx={{
                     aspectRatio: "2/3",
-                    minHeight: "300px",
+                    minHeight: "370px",
                     backgroundColor: "secondary.main",
                     backgroundImage: `url(${movie.poster})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     borderRadius: "12px",
                     position: "relative",
-                    overflow: 'hidden',
-                    '&:hover': {
-                      '& .movie-info': {
-                        bottom: 0,
-                      }
-                    }
+                    overflow: 'hidden'
                   }}
               >
                 <Chip
@@ -42,20 +40,24 @@ export function Movies({movies}: MoviesProps) {
                       '& .MuiChip-label': {px: '8px'}
                     }}
                 />
-                <Box className="movie-info" sx={{
-                  position: 'absolute',
-                  bottom: '-100%',
-                  left: 0,
-                  width: '100%',
-                  p: '16px',
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
-                  transition: '0.3s ease',
-                }}>
+              </Box>
+              <Box className="movie-info" sx={{
+                width: '100%',
+                pt: '10px',
+              }}>
+                <Box sx={{mb: "5px"}}>
                   <Typography variant="subtitle1"
                               sx={{fontWeight: 'bold'}}>{movie.title}</Typography>
                   <Typography variant="body2"
-                              color="text.secondary">{movie.releaseDate}</Typography>
+                              sx={{
+                                fontWeight: 'bold',
+                                color: theme.palette.text.secondary
+                              }}>
+                    {movie.genres[0].name}
+                  </Typography>
                 </Box>
+                <Typography variant="body2"
+                            color="text.secondary">{movie.releaseDate.split("-")[0]}</Typography>
               </Box>
             </Grid>
         ))}

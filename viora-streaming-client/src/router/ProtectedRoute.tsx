@@ -5,9 +5,9 @@ import {AppLayout} from "../AppLayout.tsx";
 const ProtectedRoute = () => {
   const token = localStorage.getItem('JWT_TOKEN');
 
-  // if (!token) {
-  //   return <Navigate to={API_PAGE.Auth} replace/>
-  // }
+  if (!token) {
+    return <Navigate to={API_PAGE.Auth} replace/>
+  }
 
   return (
       <AppLayout/>

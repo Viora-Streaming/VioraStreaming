@@ -8,7 +8,7 @@ export interface MovieSummary {
   title: string;
   poster: string;
   releaseDate: string;
-  genres: string[];
+  genres: Genre[];
   rating: number;
 }
 
@@ -24,7 +24,7 @@ export interface Pageable {
 
 export interface MovieFilter {
   search?: string;
-  genres: number[];
+  genresIds: number[];
   rating: number;
   releaseYear: ReleaseYear;
   duration: Duration;

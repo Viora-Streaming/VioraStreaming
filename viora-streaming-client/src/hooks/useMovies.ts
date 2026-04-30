@@ -5,7 +5,7 @@ import {fetchNextMoviesPage, resetMovies, setNextPage} from "../store/content.ts
 import {DURATION_VALUE_MAP} from "../constants/filterConstants.ts";
 import type {MovieSummary} from "../types/movieTypes.ts";
 import * as React from "react";
-import {fetchMoviesPage, fetchPopularMovies} from "../api/contentApi.ts";
+import {fetchPopularMovies} from "../api/contentApi.ts";
 
 interface UseInfiniteMoviesResult {
   movies: MovieSummary[];
@@ -27,13 +27,15 @@ export function useInfiniteMovies(): UseInfiniteMoviesResult {
   const filters = useSelector((state: RootState) => state.filters);
   const loaderRef = useRef<HTMLDivElement>(null);
 
+  console.log(DURATION_VALUE_MAP[filters.duration]);
+
   const handleFetch = () => {
     dispatch(fetchNextMoviesPage({
       page: page,
       size: 10,
       duration: DURATION_VALUE_MAP[filters.duration],
       releaseYear: {from: filters.releaseYear[0], to: filters.releaseYear[1]},
-      genres: filters.genres,
+      genresIds: filters.genres,
       rating: filters.rating,
       search: filters.title
     }));
