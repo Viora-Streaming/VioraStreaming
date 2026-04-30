@@ -15,12 +15,12 @@ export function MovieDetailsPage() {
 
   return (
       <Box sx={{
-        py: "100px",
+        py: "50px",
         px: "48px",
       }}>
 
         <Stack spacing="64px" sx={{
-          maxWidth: "1200px",
+          maxWidth: "1280px",
           margin: "0 auto",
         }}>
           <MovieDetails movie={movie}/>
