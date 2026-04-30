@@ -5,6 +5,7 @@ import jakarta.persistence.criteria.JoinType;
 import org.springframework.data.jpa.domain.Specification;
 import org.viora.viorastreamingcore.content.dto.Duration;
 import org.viora.viorastreamingcore.content.dto.MovieFilter;
+import org.viora.viorastreamingcore.content.dto.ReleaseYear;
 import org.viora.viorastreamingcore.content.model.Genre;
 import org.viora.viorastreamingcore.content.model.Movie;
 import java.time.LocalDate;
@@ -35,18 +36,26 @@ public class MovieSpecification {
         rating == null ? null : cb.greaterThan(root.get("rating"), rating);
   }
 
-  public static Specification<Movie> hasReleaseYear(Integer year) {
+  public static Specification<Movie> hasReleaseYear(ReleaseYear year) {
     return (root, query, cb) -> {
-      if (year == null) return null;
-      LocalDate from = LocalDate.of(year, 1, 1);
-      return cb.greaterThanOrEqualTo(root.get("releaseDate"), from);
+      if (year == null) {
+        return null;
+      }
+      LocalDate from = LocalDate.of(year.from(), 1, 1);
+      LocalDate to = LocalDate.of(year.to(), 12, 31);
+      return cb.between(root.get("releaseDate"), from, to);
     };
   }
 
   public static Specification<Movie> hasDurationBetween(Duration duration) {
-    return (root, query, cb) ->
-        duration == null ? null
-            : cb.between(root.get("durationInMinutes"), duration.from(), duration.to());
+    return (root, query, cb) -> {
+      if (duration == null) {
+        return null;
+      }
+      Integer from = duration.from() == null ? 0 : duration.from();
+      Integer to = duration.to() == null ? 10000 : duration.to();
+      return cb.between(root.get("durationInMinutes"), from, to);
+    };
   }
 
   public static Specification<Movie> buildSpecification(MovieFilter filter) {

@@ -1,10 +1,16 @@
-import { AppBar, Toolbar, Stack, Avatar, Container, Box } from "@mui/material";
-import { VioraLogo } from "../Logo/VioraLogo.tsx";
-import { HeaderNavigation } from "./subcomponents/HeaderNavigation.tsx";
-import { SearchField } from "./subcomponents/SearchField.tsx";
+import {AppBar, Toolbar, Stack, Avatar, Container, Box} from "@mui/material";
+import {VioraLogo} from "../Logo/VioraLogo.tsx";
+import {HeaderNavigation} from "./subcomponents/HeaderNavigation.tsx";
+import {SearchField} from "./subcomponents/SearchField.tsx";
 import userAvatar from "../../assets/user-acc-img.jpg";
+import {useDispatch} from "react-redux";
+import type {AppDispatch} from "../../store/store.ts";
+import {setTitle} from "../../store/filterSlice.ts";
 
 export function Header() {
+
+  const dispatch = useDispatch<AppDispatch>();
+
   return (
       <AppBar
           position="sticky"
@@ -27,8 +33,8 @@ export function Header() {
               }}
           >
             <Stack direction="row" spacing="48px">
-              <VioraLogo variant="h4" fontSize="24px" />
-              <HeaderNavigation />
+              <VioraLogo variant="h4" fontSize="24px"/>
+              <HeaderNavigation/>
             </Stack>
 
             <Box
@@ -40,10 +46,10 @@ export function Header() {
                   display: "flex",
                   justifyContent: "center",
                   pointerEvents: "none",
-                  "& > *": { pointerEvents: "auto" }
+                  "& > *": {pointerEvents: "auto"}
                 }}
             >
-              <SearchField />
+              <SearchField onSearch={(searchQuery: string) => dispatch(setTitle(searchQuery))}/>
             </Box>
 
             <Stack direction="row">
@@ -54,7 +60,7 @@ export function Header() {
                     height: 40,
                     cursor: "pointer",
                     transition: "transform 0.2s",
-                    "&:hover": { transform: "scale(1.1)" }
+                    "&:hover": {transform: "scale(1.1)"}
                   }}
               />
             </Stack>
