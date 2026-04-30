@@ -1,6 +1,8 @@
 import {Box, Chip, Grid, Stack, Typography} from "@mui/material";
 import type {MovieSummary} from "../../../types/movieTypes.ts";
 import {useTheme} from "@mui/material/styles";
+import {useNavigate} from "react-router-dom";
+import {API_PAGE} from "../../../constants/routingConstants.ts";
 
 type MoviesProps = {
   movies: MovieSummary[]
@@ -8,11 +10,19 @@ type MoviesProps = {
 
 export function Movies({movies}: MoviesProps) {
   const theme = useTheme();
+  const navigate = useNavigate();
 
   return (
       <Grid container spacing={3}>
         {movies.map((movie) => (
-            <Grid key={movie.id}>
+            <Grid
+                key={movie.id}
+                onClick={() => navigate(`${API_PAGE.Movies}/${movie.id}`)}
+                sx={{
+                  cursor: 'pointer',
+                  maxWidth: "250px"
+                }}
+            >
               <Box
                   sx={{
                     aspectRatio: "2/3",
@@ -47,7 +57,14 @@ export function Movies({movies}: MoviesProps) {
               }}>
                 <Box sx={{mb: "5px"}}>
                   <Typography variant="subtitle1"
-                              sx={{fontWeight: 'bold'}}>{movie.title}</Typography>
+                              sx={{
+                                fontWeight: 'bold',
+                                textWrap: "noWrap",
+                                maxWidth: "220px",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis"
+                              }}
+                  >{movie.title}</Typography>
                   <Typography variant="body2"
                               sx={{
                                 fontWeight: 'bold',

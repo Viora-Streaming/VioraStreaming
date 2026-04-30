@@ -36,3 +36,26 @@ export interface ReleaseYear {
   from: number;
   to: number;
 }
+
+export interface Person {
+  id: number;
+  name: string;
+  photo: string;
+}
+
+export interface MovieDetails {
+  id: number,
+  title: string,
+  plot: string,
+  poster: string,
+  rating: number,
+  rated: string,
+  videoUrl: string,
+  releaseDate: string,
+  durationInMinutes: number,
+  actors: Person[],
+  director: Person,
+  genres: Genre[],
+  writer: Person,
+  imdbId: string,
+}
