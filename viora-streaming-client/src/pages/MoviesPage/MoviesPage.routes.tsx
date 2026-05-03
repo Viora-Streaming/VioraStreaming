@@ -3,6 +3,7 @@ import MoviesPage from "./MoviesPage.tsx";
 import {API_PATHS} from "../../constants/apiConstants.ts";
 import {MovieDetailsPage} from "../MovieDetailsPage/MovieDetailsPage.tsx";
 import {API_PAGE, PAGE_ROUTES} from "../../constants/routingConstants.ts";
+import {MoviePlayer} from "../MoviePlayer/MoviePlayer.tsx";
 
 export const MoviesPageChildRoutes: RouteObject[] = [
   {
@@ -12,5 +13,9 @@ export const MoviesPageChildRoutes: RouteObject[] = [
   {
     path: `${API_PAGE.Movies}/:id`,
     element: <MovieDetailsPage />
+  },
+  {
+    path: `${API_PAGE.Movies}/:id/player`,
+    element: <MoviePlayer />
   }
 ]
