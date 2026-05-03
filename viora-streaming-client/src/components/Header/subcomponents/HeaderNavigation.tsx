@@ -1,16 +1,16 @@
-import { Link, Stack } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import {Link, Stack} from "@mui/material";
+import {NavLink} from "react-router-dom";
 import {API_PAGE} from "../../../constants/routingConstants.ts";
 
 const navItems = [
-  { name: "Home", path: API_PAGE.Home },
-  { name: "Movies", path: API_PAGE.Movies },
-  { name: "My list", path: "/my-list" },
+  {name: "Home", path: API_PAGE.Home},
+  {name: "Movies", path: API_PAGE.Movies},
+  {name: "History", path: API_PAGE.History},
 ];
 
 export function HeaderNavigation() {
   return (
-      <Stack direction="row" spacing="32px" className="nav-container">
+      <Stack direction="row" spacing="32px">
         {navItems.map((item) => (
             <Link
                 key={item.name}
