@@ -4,4 +4,5 @@ export const API_PATHS = {
   register: '/api/v1/accounts/register',
   movies: '/api/v1/movies',
   popularMovies: '/api/v1/movies/popular',
+  streaming: "/api/v1/streaming/movies"
 }

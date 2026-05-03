@@ -1,6 +1,6 @@
-const API_BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:8080'
+export const API_BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:8080'
 
-const getToken = () => localStorage.getItem("JWT_TOKEN");
+export const getToken = () => localStorage.getItem("JWT_TOKEN");
 
 export class ApiError extends Error {
   public status: number;
