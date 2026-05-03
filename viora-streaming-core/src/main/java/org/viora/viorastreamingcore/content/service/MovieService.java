@@ -5,6 +5,8 @@ import org.springframework.data.domain.Pageable;
 import org.viora.viorastreamingcore.content.dto.MovieDto;
 import org.viora.viorastreamingcore.content.dto.MovieFilter;
 import org.viora.viorastreamingcore.content.dto.MovieSummary;
+import java.util.List;
+import java.util.Set;
 
 public interface MovieService {
 
@@ -15,5 +17,7 @@ public interface MovieService {
   MovieDto getMovieById(Long id);
 
   MovieSummary getMovieByImdbId(String imdbId);
+
+  List<MovieSummary> getMoviesByIds(Set<Long> movieIds);
 
 }

@@ -26,11 +26,11 @@ public class History {
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
 
-  @ManyToOne
+  @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
   @JoinColumn(name = "account_id", nullable = false, updatable = false)
   private AccountModel account;
 
-  @ManyToOne
+  @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
   @JoinColumn(name = "movie_id", nullable = false, updatable = false)
   private Movie movie;
 
