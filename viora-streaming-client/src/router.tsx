@@ -6,19 +6,20 @@ import {Navigate} from "react-router-dom";
 import ProtectedRoute from "./router/ProtectedRoute.tsx";
 import {HomePageChildRoutes} from "./pages/HomePage/HomePage.routes.tsx";
 import {MoviesPageChildRoutes} from "./pages/MoviesPage/MoviesPage.routes.tsx";
+import {HistoryPage} from "./pages/HistoryPage/HistoryPage.tsx";
 
 export const routes: RouteObject[] = [
   {
     path: '/',
-    element: <Navigate to={API_PAGE.Home} replace />
+    element: <Navigate to={API_PAGE.Home} replace/>
   },
   {
     path: API_PAGE.Auth,
-    element: <AnonRoute />,
+    element: <AnonRoute/>,
     children: WelcomePageChildRoutes,
   },
   {
-    element: <ProtectedRoute />,
+    element: <ProtectedRoute/>,
     children: [
       {
         path: API_PAGE.Movies,
@@ -28,6 +29,10 @@ export const routes: RouteObject[] = [
         path: API_PAGE.Home,
         children: HomePageChildRoutes,
       },
+      {
+        path: API_PAGE.History,
+        element: <HistoryPage/>
+      }
     ]
   }
 ]

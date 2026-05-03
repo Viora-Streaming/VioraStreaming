@@ -10,6 +10,7 @@ export interface MovieSummary {
   releaseDate: string;
   genres: Genre[];
   rating: number;
+  durationInMinutes: number;
 }
 
 export interface Duration {
