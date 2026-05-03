@@ -1,6 +1,8 @@
 package org.viora.viorastreamingcore.content.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -50,6 +52,14 @@ public class MovieServiceImpl implements MovieService {
             () -> new MovieNotFoundException("Movie with imdbId: " + imdbId + " not found"));
   }
 
+  @Override
+  public List<MovieSummary> getMoviesByIds(Set<Long> movieIds) {
+    return movieRepository.findMoviesByIdIn(movieIds)
+        .stream()
+        .map(this::mapToMovieSummary)
+        .collect(Collectors.toList());
+  }
+
   private MovieSummary mapToMovieSummary(Movie m) {
     return MovieSummary.builder()
         .id(m.getId())
@@ -59,6 +69,7 @@ public class MovieServiceImpl implements MovieService {
         .genres(m.getGenres().stream().map(genre -> new GenreDto(genre.getId(), genre.getName()))
             .collect(Collectors.toSet()))
         .rating(m.getRating())
+        .durationInMinutes(m.getDurationInMinutes())
         .build();
   }
 }

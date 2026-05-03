@@ -10,9 +10,11 @@ import org.viora.viorastreamingcore.account.model.AccountModel;
 import org.viora.viorastreamingcore.account.repository.AccountRepository;
 import org.viora.viorastreamingcore.content.model.Movie;
 import org.viora.viorastreamingcore.content.repository.MovieRepository;
+import org.viora.viorastreamingcore.history.dto.HistoryDto;
 import org.viora.viorastreamingcore.history.model.History;
 import org.viora.viorastreamingcore.history.repository.HistoryRepository;
 import org.viora.viorastreamingcore.history.service.command.SaveHistoryCommand;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor

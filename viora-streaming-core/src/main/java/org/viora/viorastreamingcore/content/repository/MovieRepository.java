@@ -1,5 +1,7 @@
 package org.viora.viorastreamingcore.content.repository;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,4 +37,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long>,
   Optional<Movie> findFullMovieById(@Param("id") Long id);
 
   Optional<Movie> findMoviesByImdbId(String imdbId);
+
+  List<Movie> findMoviesByIdIn(Collection<Long> ids);
 }

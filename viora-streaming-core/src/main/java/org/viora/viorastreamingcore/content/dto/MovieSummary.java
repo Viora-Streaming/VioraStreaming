@@ -11,7 +11,8 @@ public record MovieSummary(
     String poster,
     LocalDate releaseDate,
     Set<GenreDto> genres,
-    Float rating
+    Float rating,
+    Long durationInMinutes
 ) {
 
 }
