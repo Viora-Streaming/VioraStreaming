@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.viora.viorastreamingcore.content.dto.MovieSummary;
 import org.viora.viorastreamingcore.content.model.Movie;
 
 public interface MovieRepository extends JpaRepository<Movie, Long>,
@@ -33,4 +34,5 @@ public interface MovieRepository extends JpaRepository<Movie, Long>,
       """)
   Optional<Movie> findFullMovieById(@Param("id") Long id);
 
+  Optional<Movie> findMoviesByImdbId(String imdbId);
 }

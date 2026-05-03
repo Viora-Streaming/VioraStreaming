@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1777816465123-1
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 50
+            sequenceName: history_seq
+            startValue: 1
+  - changeSet:
+      id: 1777816465123-2
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_history
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: account_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: movie_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: last_watched_at
+                  type: BIGINT
+            tableName: history
+  - changeSet:
+      id: 1777816465123-3
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: account_id
+            baseTableName: history
+            constraintName: FK_HISTORY_ON_ACCOUNT
+            referencedColumnNames: id
+            referencedTableName: accounts
+  - changeSet:
+      id: 1777816465123-4
+      author: vovchikPersonal
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: movie_id
+            baseTableName: history
+            constraintName: FK_HISTORY_ON_MOVIE
+            referencedColumnNames: id
+            referencedTableName: movies
+
