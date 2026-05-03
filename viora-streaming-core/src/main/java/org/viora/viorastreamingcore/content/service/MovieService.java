@@ -14,4 +14,6 @@ public interface MovieService {
 
   MovieDto getMovieById(Long id);
 
+  MovieSummary getMovieByImdbId(String imdbId);
+
 }

@@ -42,6 +42,14 @@ public class MovieServiceImpl implements MovieService {
         .orElseThrow(() -> new MovieNotFoundException("Movie not found with id: " + id));
   }
 
+  @Override
+  public MovieSummary getMovieByImdbId(String imdbId) {
+    return movieRepository.findMoviesByImdbId(imdbId)
+        .map(this::mapToMovieSummary)
+        .orElseThrow(
+            () -> new MovieNotFoundException("Movie with imdbId: " + imdbId + " not found"));
+  }
+
   private MovieSummary mapToMovieSummary(Movie m) {
     return MovieSummary.builder()
         .id(m.getId())

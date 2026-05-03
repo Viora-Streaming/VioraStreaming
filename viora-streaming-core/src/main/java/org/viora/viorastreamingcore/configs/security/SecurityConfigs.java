@@ -32,7 +32,6 @@ public class SecurityConfigs {
           authorize.requestMatchers("/swagger-ui/*", "/v3/api-docs", "/v3/api-docs.yaml", "/v3/api-docs/*")
               .permitAll();
           authorize.requestMatchers("/actuator", "/actuator/*").permitAll();
-          authorize.anyRequest().authenticated();
         });
 
     http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
