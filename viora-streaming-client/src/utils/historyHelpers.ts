@@ -1,6 +1,6 @@
 import type {History} from "../types/historyTypes.ts";
 
-const SEGMENT_DURATION_SECONDS = 10;
+export const SEGMENT_DURATION_SECONDS = 6;
 
 export function getProgressInfo(history: History): {
   progressPercent: number;

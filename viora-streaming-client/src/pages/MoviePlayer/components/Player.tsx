@@ -32,6 +32,7 @@ interface PlayerProps {
   apiBaseUrl: string;
   title?: string;
   onClose?: () => void;
+  startFrom?: number;
 }
 
 function formatTime(seconds: number): string {
@@ -53,7 +54,8 @@ export function Player({
                          movieId,
                          apiBaseUrl,
                          title = "Now Playing",
-                         onClose
+                         onClose,
+                         startFrom
                        }: PlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -72,7 +74,8 @@ export function Player({
 
   const {isHlsLoading, hlsError} = useHls({
     src: playlistUrl,
-    videoRef
+    videoRef,
+    startFrom
   });
 
   const isLoading = isHlsLoading || isVideoLoading;

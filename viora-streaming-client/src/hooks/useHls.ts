@@ -1,10 +1,12 @@
 import {useEffect, useRef, useState} from "react";
 import Hls from "hls.js";
 import {getToken} from "../utils/apiUtils.ts";
+import {SEGMENT_DURATION_SECONDS} from "../utils/historyHelpers.ts";
 
 interface UseHlsOptions {
   src: string;
   videoRef: React.RefObject<HTMLVideoElement>;
+  startFrom?: number;
 }
 
 interface UseHlsResult {
@@ -13,17 +15,10 @@ interface UseHlsResult {
   bufferedPercent: number;
 }
 
-function readToken(key: string): string | null {
-  try {
-    return localStorage.getItem(key);
-  } catch {
-    return null;
-  }
-}
-
 export function useHls({
                          src,
-                         videoRef
+                         videoRef,
+                         startFrom = 0
                        }: UseHlsOptions): UseHlsResult {
   const hlsRef = useRef<Hls | null>(null);
   const [isHlsLoading, setIsHlsLoading] = useState(true);
@@ -43,7 +38,7 @@ export function useHls({
         enableWorker: true,
         lowLatencyMode: false,
         xhrSetup: (xhr) => {
-          const token = readToken("JWT_TOKEN");
+          const token = getToken();
           if (token) xhr.setRequestHeader("Authorization", `Bearer ${token}`);
         },
       });
@@ -53,6 +48,7 @@ export function useHls({
       hls.attachMedia(video);
 
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.currentTime = startFrom * SEGMENT_DURATION_SECONDS;
         setIsHlsLoading(false);
       });
 

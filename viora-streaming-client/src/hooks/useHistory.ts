@@ -1,5 +1,5 @@
 import {useCallback, useLayoutEffect, useState} from "react";
-import {getUserHistories} from "../api/historyApi.ts";
+import {getHistoryByMovie, getUserHistories} from "../api/historyApi.ts";
 import type {History} from "../types/historyTypes.ts";
 
 export const useHistory = () => {
@@ -19,4 +19,23 @@ export const useHistory = () => {
   }, []);
 
   return {histories, isLoading}
+}
+
+export const useHistoryByMovie = (movieId: number) => {
+
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [history, setHistory] = useState<History>(null);
+
+
+  const fetchHistories = useCallback(async () => {
+    const fetchedHistory = await getHistoryByMovie(movieId);
+    setHistory(fetchedHistory);
+    setIsLoading(false);
+  }, []);
+
+  useLayoutEffect(() => {
+    fetchHistories();
+  }, []);
+
+  return {history, isLoading}
 }
