@@ -6,7 +6,7 @@ import {getProgressInfo} from "../../../utils/historyHelpers.ts";
 type HistoryMovieCardProps = {
   history: History;
   onClick: () => void;
-}
+};
 
 export function HistoryMovieCard({history, onClick}: HistoryMovieCardProps) {
   const {progressPercent, label, finished} = getProgressInfo(history);
@@ -14,6 +14,7 @@ export function HistoryMovieCard({history, onClick}: HistoryMovieCardProps) {
   return (
       <Stack onClick={onClick} spacing="16px" sx={{
         cursor: "pointer",
+        minWidth: 0
       }}>
         <Box sx={{position: "relative"}}>
           <MovieCard poster={history.movie.poster}/>
@@ -21,11 +22,11 @@ export function HistoryMovieCard({history, onClick}: HistoryMovieCardProps) {
               variant="determinate"
               value={progressPercent}
               sx={{
+                position: "absolute",
+                bottom: 0,
                 width: "100%",
-                bottom: "0",
                 height: "4px",
                 borderRadius: 2,
-                position: "absolute",
                 bgcolor: "rgba(255,255,255,0.1)",
                 "& .MuiLinearProgress-bar": {
                   borderRadius: 2,
@@ -36,23 +37,21 @@ export function HistoryMovieCard({history, onClick}: HistoryMovieCardProps) {
         </Box>
 
         <Stack spacing="4px">
-          <Typography variant="subtitle2" sx={{
-            fontWeight: "bold",
-            textWrap: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            maxWidth: "120px",
-          }}>
+          <Typography
+              variant="subtitle2"
+              sx={{
+                fontWeight: "bold",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+          >
             {history.movie.title}
           </Typography>
-
-          <Typography variant="body2" sx={{
-            color: "text.secondary",
-          }}>
+          <Typography variant="body2" sx={{color: "text.secondary"}}>
             {label}
           </Typography>
-
         </Stack>
       </Stack>
-  )
+  );
 }

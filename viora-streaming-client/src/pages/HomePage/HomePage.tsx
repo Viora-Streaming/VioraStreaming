@@ -13,7 +13,6 @@ import {SmartRecommender} from "./components/SmartRecommender.tsx";
 import {JoinTheCommunity} from "./components/JoinTheCommunity.tsx";
 
 export default function HomePage() {
-
   const {movies, isLoading} = useTrendingMovies();
   const {histories, isLoading: historyLoading} = useHistory();
 
@@ -23,78 +22,108 @@ export default function HomePage() {
 
   return (
       <Stack spacing="48px">
-        <IntroMovie movie={movies[0]}/>
+        <IntroMovie movie={movies[0]} />
         <Stack spacing="64px" sx={{p: "64px"}}>
-          <ContinueWatchingSection histories={histories}/>
-          <TrendingNowSection movies={movies}/>
-          <CuratedForYou movie={movies[1]}/>
+          <ContinueWatchingSection histories={histories} />
+          <TrendingNowSection movies={movies} />
+          <CuratedForYou movie={movies[1]} />
         </Stack>
       </Stack>
   );
 }
 
-type ContinueWatchingProps = {
-  histories: History[];
-}
+// ─── Continue Watching ────────────────────────────────────────────────────────
+
+type ContinueWatchingProps = {histories: History[]};
 
 function ContinueWatchingSection({histories}: ContinueWatchingProps) {
   return (
       <Stack spacing="24px">
-        <Stack direction="row" sx={{
-          justifyContent: "space-between",
-          alignItems: "center"
-        }}>
+        <Stack direction="row" sx={{justifyContent: "space-between", alignItems: "center"}}>
           <Typography variant="h5" sx={{fontWeight: "bold"}}>Continue Watching</Typography>
           <Link component={NavLink} to={API_PAGE.History} underline="none">
             View All
           </Link>
         </Stack>
-        <Stack spacing="24px" direction="row">
-          {histories.slice(0, 6).map((history) => (
-              <HistoryMovieCard history={history} onClick={() => {
-              }}/>
+
+        {/*
+        MovieCard is aspectRatio 2/3 with width filling the cell.
+        At minmax(160px, 1fr) the card height ≈ 160 * 1.5 = 240px.
+        Text below adds ~56px. Total row ≈ 296px + 24px gap = 320px.
+        Setting height to that value clips any second row cleanly.
+      */}
+        <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",
+              gap: "24px",
+              height: "320px",   // card (240) + text (56) + gap buffer
+              overflow: "hidden",
+              alignItems: "start",
+            }}
+        >
+          {histories.map((history) => (
+              <HistoryMovieCard
+                  key={history.movie.id}
+                  history={history}
+                  onClick={() => {}}
+              />
           ))}
-        </Stack>
+        </Box>
       </Stack>
-  )
+  );
 }
 
-type TrendingNowProps = {
-  movies: MovieSummary[];
-}
+// ─── Trending Now ─────────────────────────────────────────────────────────────
+
+type TrendingNowProps = {movies: MovieSummary[]};
 
 function TrendingNowSection({movies}: TrendingNowProps) {
   return (
       <Stack spacing="24px">
         <Typography variant="h5" sx={{fontWeight: "bold"}}>Trending Now</Typography>
-        <Stack spacing="24px" direction="row">
-          {movies.slice(0, 6).map((movie) => (
-              <TrendingMovieCard movie={movie} onClick={() => {
-              }}/>
+
+        <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",
+              gap: "24px",
+              height: "320px",
+              overflow: "hidden",
+              alignItems: "start",
+            }}
+        >
+          {movies.map((movie) => (
+              <TrendingMovieCard key={movie.id} movie={movie} onClick={() => {}} />
           ))}
-        </Stack>
+        </Box>
       </Stack>
-  )
+  );
 }
 
-type CuratedForYouProps = {
-  movie: MovieSummary;
-}
+// ─── Curated For You ──────────────────────────────────────────────────────────
+
+type CuratedForYouProps = {movie: MovieSummary};
 
 function CuratedForYou({movie}: CuratedForYouProps) {
   return (
-      <Box sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "24px",
-      }}>
+      <Stack spacing="24px">
         <Typography variant="h6" sx={{fontWeight: "bold"}}>Curated For You</Typography>
-        <Stack direction="row" spacing="24px">
-          <WeekendSpecial movie={movie}/>
-          <SmartRecommender/>
-          <JoinTheCommunity />
-        </Stack>
-      </Box>
-  )
-}
 
+        <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+              gap: "24px",
+              height: "400px",
+              overflow: "hidden",
+              alignItems: "start",
+            }}
+        >
+          <WeekendSpecial movie={movie} />
+          <SmartRecommender />
+          <JoinTheCommunity />
+        </Box>
+      </Stack>
+  );
+}
