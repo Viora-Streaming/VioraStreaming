@@ -11,6 +11,7 @@ export interface MovieSummary {
   genres: Genre[];
   rating: number;
   durationInMinutes: number;
+  plot: string;
 }
 
 export interface Duration {
