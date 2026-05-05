@@ -5,4 +5,6 @@ import java.util.List;
 
 public interface GetHistoryUseCase {
   List<HistoryDto> getHistory();
+
+  HistoryDto getHistoryById(Long id);
 }

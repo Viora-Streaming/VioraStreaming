@@ -9,7 +9,7 @@ export function MoviePlayer() {
   const navigate = useNavigate();
 
   // useParams always returns string | undefined — parse to number for usePlayer
-  const {imdbId, title, isLoading} = usePlayer(Number(id));
+  const {imdbId, title, isLoading, history} = usePlayer(Number(id));
 
   if (isLoading || !imdbId) {
     return (
@@ -24,7 +24,7 @@ export function MoviePlayer() {
               zIndex: 1400,
             }}
         >
-          <CircularProgress sx={{color: "#e50914"}} size={64} thickness={2} />
+          <CircularProgress sx={{color: "#e50914"}} size={64} thickness={2}/>
         </Box>
     );
   }
@@ -35,6 +35,7 @@ export function MoviePlayer() {
           apiBaseUrl={API_BASE}
           title={title}
           onClose={() => navigate(-1)}
+          startFrom={history.lastWatchedAt}
       />
   );
 }

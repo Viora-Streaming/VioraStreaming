@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Service
 @RequiredArgsConstructor
 public class GetHistoryService implements GetHistoryUseCase {
@@ -43,5 +45,14 @@ public class GetHistoryService implements GetHistoryUseCase {
     }
 
     return historyDtos;
+  }
+
+  @Override
+  public HistoryDto getHistoryById(Long movieId) {
+    MovieSummary summary = movieService.getMovieSummaryById(movieId);
+    return repository.findByAccountIdAndMovieId(
+            securityHelpers.getCurrentlyAuthenticatedAccountId(), movieId)
+        .map(h -> new HistoryDto(summary, h.getLastWatchedAt()))
+        .orElse(new HistoryDto(summary, 0L));
   }
 }

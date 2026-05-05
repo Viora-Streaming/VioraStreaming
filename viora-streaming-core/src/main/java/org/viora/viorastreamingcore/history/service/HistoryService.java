@@ -24,9 +24,13 @@ public class HistoryService implements SaveHistoryUseCase {
   public void saveHistory(SaveHistoryCommand command) {
     AccountModel account = accountRepository.getReferenceById(command.getAccountId());
     Movie movie = movieRepository.getReferenceById(command.getMovieId());
-    History history = historyRepository.findByAccountIdAndMovieId(command.getAccountId(),
-            command.getMovieId())
+
+    History history = historyRepository
+        .findByAccountIdAndMovieId(command.getAccountId(), command.getMovieId())
         .orElse(new History(null, account, movie, command.getSegment()));
+
+    history.setLastWatchedAt(command.getSegment());
+
     historyRepository.save(history);
   }
 }

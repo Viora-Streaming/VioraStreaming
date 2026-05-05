@@ -60,6 +60,12 @@ public class MovieServiceImpl implements MovieService {
         .collect(Collectors.toList());
   }
 
+  @Override
+  public MovieSummary getMovieSummaryById(Long id) {
+    return movieRepository.findById(id).map(this::mapToMovieSummary)
+        .orElseThrow(() -> new MovieNotFoundException("Movie with id %s not found".formatted(id)));
+  }
+
   private MovieSummary mapToMovieSummary(Movie m) {
     return MovieSummary.builder()
         .id(m.getId())

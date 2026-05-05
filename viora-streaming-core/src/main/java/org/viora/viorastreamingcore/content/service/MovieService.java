@@ -20,4 +20,5 @@ public interface MovieService {
 
   List<MovieSummary> getMoviesByIds(Set<Long> movieIds);
 
+  MovieSummary getMovieSummaryById(Long id);
 }
