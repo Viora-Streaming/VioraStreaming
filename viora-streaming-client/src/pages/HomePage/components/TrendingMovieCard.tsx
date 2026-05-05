@@ -9,8 +9,11 @@ type TrendingMovieCardProps = {
 
 export function TrendingMovieCard({movie, onClick}: TrendingMovieCardProps) {
   return (
-      <Stack onClick={onClick} spacing="16px" sx={{cursor: "pointer", minWidth: 0}}>
-        <MovieCard poster={movie.poster} />
+      <Stack onClick={onClick} spacing="16px" sx={{
+        cursor: "pointer",
+        width: "100%",
+      }}>
+        <MovieCard poster={movie.poster}/>
 
         <Stack spacing="4px">
           <Typography

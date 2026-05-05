@@ -12,7 +12,7 @@ export function SmartRecommender({onClick}: SmartRecommenderProps) {
         bgcolor: "background.paper",
         borderRadius: "12px",
         minHeight: "400px",
-        maxWidth: "523px",
+        width: "100%",
         cursor: "pointer",
       }} onClick={onClick}>
         <Stack sx={{

@@ -12,7 +12,8 @@ public record MovieSummary(
     LocalDate releaseDate,
     Set<GenreDto> genres,
     Float rating,
-    Long durationInMinutes
+    Long durationInMinutes,
+    String plot
 ) {
 
 }

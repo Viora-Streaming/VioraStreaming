@@ -8,7 +8,7 @@ export function JoinTheCommunity() {
         bgcolor: "primary.main",
         borderRadius: "12px",
         minHeight: "400px",
-        maxWidth: "523px",
+        width: "100%",
         cursor: "pointer",
         justifyContent: "space-between",
       }}>

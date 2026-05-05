@@ -2,19 +2,14 @@ package org.viora.viorastreamingcore.history.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import org.viora.viorastreamingcore.account.dto.Account;
 import org.viora.viorastreamingcore.account.model.AccountModel;
 import org.viora.viorastreamingcore.account.repository.AccountRepository;
 import org.viora.viorastreamingcore.content.model.Movie;
 import org.viora.viorastreamingcore.content.repository.MovieRepository;
-import org.viora.viorastreamingcore.history.dto.HistoryDto;
 import org.viora.viorastreamingcore.history.model.History;
 import org.viora.viorastreamingcore.history.repository.HistoryRepository;
 import org.viora.viorastreamingcore.history.service.command.SaveHistoryCommand;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +19,7 @@ public class HistoryService implements SaveHistoryUseCase {
   private final AccountRepository accountRepository;
   private final MovieRepository movieRepository;
 
-  @EventListener(SaveHistoryCommand.class)
+  @EventListener
   @Override
   public void saveHistory(SaveHistoryCommand command) {
     AccountModel account = accountRepository.getReferenceById(command.getAccountId());

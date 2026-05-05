@@ -1,4 +1,4 @@
-import {Stack, Typography, Link, Box} from "@mui/material";
+import {Stack, Typography, Link, Box, Grid} from "@mui/material";
 import {useTrendingMovies} from "../../hooks/useMovies.ts";
 import {useHistory} from "../../hooks/useHistory.ts";
 import {IntroMovie} from "./components/IntroMovie.tsx";
@@ -22,19 +22,18 @@ export default function HomePage() {
 
   return (
       <Stack spacing="48px">
-        <IntroMovie movie={movies[0]} />
+        <IntroMovie movie={movies[0]}/>
         <Stack spacing="64px" sx={{p: "64px"}}>
-          <ContinueWatchingSection histories={histories} />
-          <TrendingNowSection movies={movies} />
-          <CuratedForYou movie={movies[1]} />
+          <ContinueWatchingSection histories={histories}/>
+          <TrendingNowSection movies={movies}/>
+          <CuratedForYou movie={movies[1]}/>
         </Stack>
       </Stack>
   );
 }
 
-// ─── Continue Watching ────────────────────────────────────────────────────────
 
-type ContinueWatchingProps = {histories: History[]};
+type ContinueWatchingProps = { histories: History[] };
 
 function ContinueWatchingSection({histories}: ContinueWatchingProps) {
   return (
@@ -64,9 +63,9 @@ function ContinueWatchingSection({histories}: ContinueWatchingProps) {
         >
           {histories.map((history) => (
               <HistoryMovieCard
-                  key={history.movie.id}
                   history={history}
-                  onClick={() => {}}
+                  onClick={() => {
+                  }}
               />
           ))}
         </Box>
@@ -74,9 +73,7 @@ function ContinueWatchingSection({histories}: ContinueWatchingProps) {
   );
 }
 
-// ─── Trending Now ─────────────────────────────────────────────────────────────
-
-type TrendingNowProps = {movies: MovieSummary[]};
+type TrendingNowProps = { movies: MovieSummary[] };
 
 function TrendingNowSection({movies}: TrendingNowProps) {
   return (
@@ -94,36 +91,32 @@ function TrendingNowSection({movies}: TrendingNowProps) {
             }}
         >
           {movies.map((movie) => (
-              <TrendingMovieCard key={movie.id} movie={movie} onClick={() => {}} />
+              <TrendingMovieCard movie={movie} onClick={() => {
+              }}/>
           ))}
         </Box>
       </Stack>
   );
 }
 
-// ─── Curated For You ──────────────────────────────────────────────────────────
-
-type CuratedForYouProps = {movie: MovieSummary};
+type CuratedForYouProps = { movie: MovieSummary };
 
 function CuratedForYou({movie}: CuratedForYouProps) {
   return (
       <Stack spacing="24px">
         <Typography variant="h6" sx={{fontWeight: "bold"}}>Curated For You</Typography>
 
-        <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-              gap: "24px",
-              height: "400px",
-              overflow: "hidden",
-              alignItems: "start",
-            }}
-        >
-          <WeekendSpecial movie={movie} />
-          <SmartRecommender />
-          <JoinTheCommunity />
-        </Box>
+        <Grid container spacing={3}>
+          <Grid size={6}>
+            <WeekendSpecial movie={movie}/>
+          </Grid>
+          <Grid size={3}>
+            <SmartRecommender/>
+          </Grid>
+          <Grid size={3}>
+            <JoinTheCommunity/>
+          </Grid>
+        </Grid>
       </Stack>
   );
 }
