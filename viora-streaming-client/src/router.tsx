@@ -7,6 +7,7 @@ import ProtectedRoute from "./router/ProtectedRoute.tsx";
 import {HomePageChildRoutes} from "./pages/HomePage/HomePage.routes.tsx";
 import {MoviesPageChildRoutes} from "./pages/MoviesPage/MoviesPage.routes.tsx";
 import {HistoryPage} from "./pages/HistoryPage/HistoryPage.tsx";
+import {AppLayoutWithSideNav} from "./components/Layout/AppLayoutWithSideNav.tsx";
 
 export const routes: RouteObject[] = [
   {
@@ -24,7 +25,12 @@ export const routes: RouteObject[] = [
       {
         path: API_PAGE.Movies,
         children: MoviesPageChildRoutes,
-      },
+      }
+    ]
+  },
+  {
+    element: <AppLayoutWithSideNav/>,
+    children: [
       {
         path: API_PAGE.Home,
         children: HomePageChildRoutes,

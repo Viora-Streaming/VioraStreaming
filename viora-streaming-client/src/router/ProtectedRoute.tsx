@@ -1,6 +1,6 @@
 import {Navigate} from 'react-router-dom';
 import {API_PAGE} from "../constants/routingConstants.ts";
-import {AppLayout} from "../AppLayout.tsx";
+import {AppLayout} from "../components/Layout/AppLayout.tsx";
 
 const ProtectedRoute = () => {
   const token = localStorage.getItem('JWT_TOKEN');

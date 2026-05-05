@@ -70,6 +70,7 @@ public class MovieServiceImpl implements MovieService {
             .collect(Collectors.toSet()))
         .rating(m.getRating())
         .durationInMinutes(m.getDurationInMinutes())
+        .plot(m.getPlot())
         .build();
   }
 }

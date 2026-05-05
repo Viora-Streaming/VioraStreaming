@@ -33,7 +33,7 @@ spring:
             enable: true
     sender:
       app: ${GRID_SENDER:dobry9495@gmail.com}
-    test-connection: true
+    test-connection: false
 
 management:
   tracing:
