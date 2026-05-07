@@ -17,6 +17,7 @@ export default function WelcomePage() {
         <LoginForm onSubmit={data => onSubmit({email: data.email, password: data.password})}
                    isLoading={isPending} error={isError ? error?.message : undefined}
                    onCreateAccount={() => navigate('/auth/register')}
+                   onForgotPassword={() => navigate('/auth/forgot-password')}
         />
       </WelcomePageContainer>
   )

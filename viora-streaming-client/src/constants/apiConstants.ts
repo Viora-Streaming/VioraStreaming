@@ -7,4 +7,5 @@ export const API_PATHS = {
   streaming: "/api/v1/streaming/movies",
   history: "/api/v1/history",
   account: "/api/v1/accounts",
+  dropPassword: "/api/v1/accounts/drop-password",
 }
