@@ -4,12 +4,14 @@ import HomeFilledIcon from "@mui/icons-material/HomeFilled";
 import MovieCreationOutlinedIcon from "@mui/icons-material/MovieCreationOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
+import SettingsIcon from '@mui/icons-material/Settings';
 import {NavLink} from "react-router-dom";
 
 const sidebarItems = [
   {name: "Home", path: API_PAGE.Home, icon: HomeFilledIcon},
   {name: "Movies", path: API_PAGE.Movies, icon: MovieCreationOutlinedIcon},
   {name: "History", path: API_PAGE.History, icon: BookmarkBorderOutlinedIcon},
+  {name: "Settings", path: API_PAGE.Settings, icon: SettingsIcon},
   {name: "AI Assistant", path: API_PAGE.Assistant, icon: AutoAwesomeOutlinedIcon},
 ];
 
@@ -59,7 +61,7 @@ export function SidebarPanel() {
                   <Stack direction="row" spacing="16px" sx={{
                     alignItems: "center"
                   }}>
-                    <Icon sx={{fontSize: 20}} />
+                    <Icon sx={{fontSize: 20}}/>
                     <Typography variant="body1" sx={{fontWeight: 500, color: "inherit"}}>
                       {item.name}
                     </Typography>

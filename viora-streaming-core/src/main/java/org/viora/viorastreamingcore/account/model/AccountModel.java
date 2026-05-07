@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import lombok.Setter;
 @Table(name = "accounts")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccountModel {
@@ -28,6 +30,10 @@ public class AccountModel {
 
   @Column(nullable = false)
   private String password;
+
+  private String fullName;
+
+  private String bio;
 
   @Column(nullable = false)
   private boolean enabled;

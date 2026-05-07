@@ -3,7 +3,8 @@ export const API_PAGE = {
   Home: '/home',
   Movies: '/movies',
   History: "/history",
-  Assistant: "/assistant"
+  Assistant: "/assistant",
+  Settings: "/settings"
 } as const;
 export const PAGE_ROUTES = {
   Register: 'register',

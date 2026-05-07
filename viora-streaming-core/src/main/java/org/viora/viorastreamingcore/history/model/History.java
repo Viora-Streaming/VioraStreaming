@@ -2,6 +2,8 @@ package org.viora.viorastreamingcore.history.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,8 +28,16 @@ public class History {
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
 
-  @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
-  @JoinColumn(name = "account_id", nullable = false, updatable = false)
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(
+      name = "account_id",
+      nullable = false,
+      updatable = false,
+      foreignKey = @ForeignKey(
+          name = "fk_history_account",
+          foreignKeyDefinition = "FOREIGN KEY (account_id) REFERENCES accounts(id) ON DELETE CASCADE"
+      )
+  )
   private AccountModel account;
 
   @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)

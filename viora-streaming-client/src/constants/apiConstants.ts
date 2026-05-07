@@ -5,5 +5,6 @@ export const API_PATHS = {
   movies: '/api/v1/movies',
   popularMovies: '/api/v1/movies/popular',
   streaming: "/api/v1/streaming/movies",
-  history: "/api/v1/history"
+  history: "/api/v1/history",
+  account: "/api/v1/accounts",
 }

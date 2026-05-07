@@ -8,6 +8,7 @@ import {HomePageChildRoutes} from "./pages/HomePage/HomePage.routes.tsx";
 import {MoviesPageChildRoutes} from "./pages/MoviesPage/MoviesPage.routes.tsx";
 import {HistoryPage} from "./pages/HistoryPage/HistoryPage.tsx";
 import {AppLayoutWithSideNav} from "./components/Layout/AppLayoutWithSideNav.tsx";
+import {SettingsPage} from "./pages/SettingsPage/SettingsPage.tsx";
 
 export const routes: RouteObject[] = [
   {
@@ -38,6 +39,10 @@ export const routes: RouteObject[] = [
       {
         path: API_PAGE.History,
         element: <HistoryPage/>
+      },
+      {
+        path: API_PAGE.Settings,
+        element: <SettingsPage/>
       }
     ]
   }

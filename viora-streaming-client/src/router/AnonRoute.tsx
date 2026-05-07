@@ -8,5 +8,5 @@ export const AnonRoute = () => {
     return <Navigate to={API_PAGE.Home} replace />;
   }
 
-  return <Outlet />;
+  return <Outlet/>;
 };
