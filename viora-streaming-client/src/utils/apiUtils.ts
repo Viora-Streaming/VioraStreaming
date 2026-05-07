@@ -1,16 +1,21 @@
 export const API_BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:8080'
 
-export const getToken = () => localStorage.getItem("JWT_TOKEN");
+const tokenName = "JWT_TOKEN";
+
+export const getToken = () => localStorage.getItem(tokenName);
+
+export const removeToken = () => localStorage.removeItem(tokenName);
 
 export class ApiError extends Error {
   public status: number;
+
   constructor(status: number, message: string) {
     super(message);
     this.status = status;
   }
 }
 
-export async function apiFetch(url: string, options?: RequestInit) {
+async function makeAuthenticatedRequest(url: string, options?: RequestInit) {
   const fullUrl = `${API_BASE}${url}`;
   const token = getToken();
 
@@ -22,7 +27,7 @@ export async function apiFetch(url: string, options?: RequestInit) {
     ...options,
     headers: {
       ...existingHeaders,
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(token ? {Authorization: `Bearer ${token}`} : {}),
     },
   });
 
@@ -31,17 +36,16 @@ export async function apiFetch(url: string, options?: RequestInit) {
     throw new ApiError(res.status, body.message ?? "Request failed");
   }
 
+  return res;
+}
+
+export async function apiFetch(url: string, options?: RequestInit) {
+  const res = await makeAuthenticatedRequest(url, options);
   return res.json();
 }
 
 export async function apiPostWithoutResult(url: string, options?: RequestInit) {
-  const fullUrl = `${API_BASE}${url}`;
-  const res = await fetch(fullUrl, options);
-
-  if (!res.ok) {
-    const body = await res.json().catch(() => ({}));
-    throw new ApiError(res.status, body.message ?? "Request failed");
-  }
+  await makeAuthenticatedRequest(url, options);
 }
 
 export function makeQueryFromProps<T extends Record<string, any>>(params: T): string {

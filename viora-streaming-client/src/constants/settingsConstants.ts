@@ -6,3 +6,7 @@ export const UPDATE_DESCRIPTION =
 
 export const DANGER_ZONE_DESCRIPTION =
     "Once you delete your account, there is no going back. Please be certain.";
+
+export const DELETE_ACCOUNT_DESCRIPTION =
+    "This action is permanent and will delete all your\n" +
+    "watch history, lists, and preferences.";

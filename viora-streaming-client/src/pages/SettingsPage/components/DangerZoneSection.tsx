@@ -28,7 +28,7 @@ export function DangerZoneSection({onClick}: DangerZoneSectionProps) {
             fontWeight: "bold",
             borderRadius: "12px",
           }} onClick={onClick}>
-            Delete My account
+            Delete My Account
           </Button>
         </Stack>
       </Container>

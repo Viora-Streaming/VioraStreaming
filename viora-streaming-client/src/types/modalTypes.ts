@@ -1,6 +1,7 @@
 export const ModalTypes = {
   networkErrorModal: 'networkErrorModal',
-  confirmEmailModal: 'confirmEmailModal'
+  confirmEmailModal: 'confirmEmailModal',
+  deleteAccountModal: 'deleteAccountModal',
 }
 
 export interface ModalProps {

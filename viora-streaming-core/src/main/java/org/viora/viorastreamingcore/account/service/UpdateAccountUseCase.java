@@ -7,4 +7,5 @@ public interface UpdateAccountUseCase {
 
   AccountDto updateUser(UpdateAccountRequest request);
 
+  void deleteAccount();
 }

@@ -4,16 +4,18 @@ import { SettingHeaderSection } from "./components/SettingsHeaderSection.tsx";
 import { SettingsBodySection } from "./components/SettingsBodySection.tsx";
 import { SettingsBottomSection } from "./components/SettingsBottomSection.tsx";
 import { useEffect, useState } from "react";
+import {
+  DeleteAccountModal
+} from "../../components/Modals/DeleteAccountModal/DeleteAccountModal.tsx";
 
 export function SettingsPage() {
-  const { account, updateAccount } = useAccount();
+  const { account, updateAccount, onDelete } = useAccount();
 
   const [formValues, setFormValues] = useState({
     fullName: "",
     bio: "",
   });
 
-  // Sync form values whenever account loads or changes
   useEffect(() => {
     if (account) {
       setFormValues({
@@ -52,7 +54,7 @@ export function SettingsPage() {
                   account={account}
                   formValues={formValues}
                   onChange={handleChange}
-                  onDeleteClick={() => {}}
+                  onDeleteClick={() => {onDelete()}}
               />
           )}
           <SettingsBottomSection onSave={handleSave} onDiscard={handleDiscard} />

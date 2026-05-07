@@ -5,10 +5,12 @@ import {EmailVerificationModal} from "./EmailVerificationModal/EmailVerification
 import * as React from "react";
 import {useCallback} from "react";
 import {NetworkErrorModal} from "./NetworkErrorModal/NetworkErrorModal.tsx";
+import {DeleteAccountModal} from "./DeleteAccountModal/DeleteAccountModal.tsx";
 
 const ModalsMap = new Map<ModalTypes, React.ComponentType<ModalProps>>([
   [ModalTypes.confirmEmailModal, EmailVerificationModal],
   [ModalTypes.networkErrorModal, NetworkErrorModal],
+  [ModalTypes.deleteAccountModal, DeleteAccountModal]
 ]);
 
 function ModalContainer() {

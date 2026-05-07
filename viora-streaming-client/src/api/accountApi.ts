@@ -1,5 +1,5 @@
 import type {Account, UpdateAccountRequest} from "../types/accountTypes.ts";
-import {apiFetch} from "../utils/apiUtils.ts";
+import {apiFetch, apiPostWithoutResult} from "../utils/apiUtils.ts";
 import {API_PATHS} from "../constants/apiConstants.ts";
 
 
@@ -15,4 +15,13 @@ export async function updateAccount(request: UpdateAccountRequest): Promise<Acco
 
 export async function getAccount(): Promise<Account> {
   return apiFetch(API_PATHS.account);
+}
+
+export async function deleteAccount(): Promise<void> {
+  return apiPostWithoutResult(API_PATHS.account, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  })
 }

@@ -76,6 +76,12 @@ public class UserManagementService implements RegisterUserUseCase, GetUserAccoun
     return mapToAccountDto(accountModel);
   }
 
+  @Override
+  public void deleteAccount() {
+    Long id = securityHelpers.getCurrentlyAuthenticatedAccountId();
+    accountRepository.deleteById(id);
+  }
+
   private AccountDto mapToAccountDto(AccountModel model) {
     return AccountDto.builder()
         .email(model.getLogin())
