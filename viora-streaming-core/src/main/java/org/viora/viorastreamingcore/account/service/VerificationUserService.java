@@ -16,6 +16,7 @@ import org.viora.viorastreamingcore.mail.services.MailService;
 public class VerificationUserService implements VerifyUserAccountUseCase {
 
   private final String redirectUrl;
+  private final String dropPasswordRedirectUrl;
   private final AccountRepository accountRepository;
   private final JwtTokenService jwtTokenService;
   private final MailService mailService;
@@ -27,6 +28,8 @@ public class VerificationUserService implements VerifyUserAccountUseCase {
     this.jwtTokenService = jwtTokenService;
     this.mailService = mailService;
     this.redirectUrl = String.format("http://%s:%s/api/v1/accounts/verify?token=", host, port);
+    this.dropPasswordRedirectUrl = String.format(
+        "http://%s:%s/api/v1/accounts/drop-password/verify?token=", host, port);
   }
 
   @Transactional
@@ -53,5 +56,21 @@ public class VerificationUserService implements VerifyUserAccountUseCase {
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
+  }
+
+  @Override
+  public void sendDropPasswordVerification(Account account) {
+    String token = jwtTokenService.generateDropPasswordToken(account); // use dedicated token
+    String url = dropPasswordRedirectUrl + token;
+    try {
+      mailService.sendEmail(account.getUsername(), new VerifyEmailMessage(url));
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  public void verifyDropPassword(String token) {
+    jwtTokenService.getUsernameFromToken(token);
   }
 }

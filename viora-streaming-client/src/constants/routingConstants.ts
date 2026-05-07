@@ -8,4 +8,6 @@ export const API_PAGE = {
 } as const;
 export const PAGE_ROUTES = {
   Register: 'register',
+  ForgotPassword: 'forgot-password',
+  DropPassword: "drop-password"
 }

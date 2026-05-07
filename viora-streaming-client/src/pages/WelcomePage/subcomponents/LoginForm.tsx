@@ -19,9 +19,16 @@ type LoginFormProps = {
   isLoading?: boolean;
   error?: string;
   onCreateAccount?: () => void;
+  onForgotPassword?: () => void;
 };
 
-export default function LoginForm({onSubmit, isLoading, error, onCreateAccount}: LoginFormProps) {
+export default function LoginForm({
+                                    onSubmit,
+                                    isLoading,
+                                    error,
+                                    onCreateAccount,
+                                    onForgotPassword
+                                  }: LoginFormProps) {
   const {handleSubmit, control, formState: {errors}} = useForm<FormData>();
 
   return (
@@ -86,7 +93,7 @@ export default function LoginForm({onSubmit, isLoading, error, onCreateAccount}:
                     justifyContent: "end",
                   }}
               >
-                <Link href="#" color="primary" underline="none" sx={{
+                <Link onClick={onForgotPassword} color="primary" underline="none" sx={{
                   fontWeight: "bold"
                 }}>
                   Forgot password?

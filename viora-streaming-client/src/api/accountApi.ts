@@ -25,3 +25,19 @@ export async function deleteAccount(): Promise<void> {
     }
   })
 }
+
+export async function sendResetPasswordLink(email: string): Promise<void> {
+  const api = `${API_PATHS.dropPassword}?email=${email}`;
+  return apiPostWithoutResult(api);
+}
+
+export async function updatePassword(password: string): Promise<void> {
+  apiPostWithoutResult("/api/v1/accounts/drop-password", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify({password: password}),
+  });
+}

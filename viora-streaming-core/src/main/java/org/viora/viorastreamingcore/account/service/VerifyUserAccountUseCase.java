@@ -8,4 +8,8 @@ public interface VerifyUserAccountUseCase {
 
   void sendVerificationForAccount(Account account);
 
+  void sendDropPasswordVerification(Account account);
+
+  void verifyDropPassword(String token);
+
 }
