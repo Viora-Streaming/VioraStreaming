@@ -35,7 +35,7 @@ export function MoviePlayer() {
           apiBaseUrl={API_BASE}
           title={title}
           onClose={() => navigate(-1)}
-          startFrom={history.lastWatchedAt}
+          startFrom={history?.lastWatchedAt}
       />
   );
 }

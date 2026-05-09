@@ -4,6 +4,6 @@ public interface DropPasswordUseCase {
 
   void dropPassword(String email);
 
-  void updatePassword(String token, String password);
+  void updatePassword(String email, String password);
 
 }

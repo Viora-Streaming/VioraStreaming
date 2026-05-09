@@ -1,5 +1,5 @@
 import {useHistory} from "../../hooks/useHistory.ts";
-import {Box, Button, LinearProgress, Stack, Typography} from "@mui/material";
+import {Box, Button, CircularProgress, LinearProgress, Stack, Typography} from "@mui/material";
 import {useNavigate} from "react-router";
 import {API_PAGE} from "../../constants/routingConstants.ts";
 import {EmptyHistoryPage} from "./components/EmptyHistoryPage.tsx";
@@ -11,7 +11,11 @@ export function HistoryPage() {
   const navigate = useNavigate();
 
   if (isLoading) {
-    return <>Loading...</>;
+    return (
+        <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh"}}>
+          <CircularProgress />
+        </Box>
+    );
   }
 
   if (!isLoading && histories.length === 0) {

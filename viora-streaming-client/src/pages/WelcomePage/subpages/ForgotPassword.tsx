@@ -5,7 +5,7 @@ import {ForgotPasswordForm} from "../subcomponents/ForgotPasswordForm.tsx";
 import {useDropPassword} from "../../../hooks/passwordHooks.ts";
 
 export function ForgotPassword() {
-  const {sendReset} = useDropPassword();
+  const {mutate: sendReset} = useDropPassword();
 
   return (
       <WelcomePageContainer>

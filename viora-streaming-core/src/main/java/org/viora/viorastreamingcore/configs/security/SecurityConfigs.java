@@ -29,7 +29,7 @@ public class SecurityConfigs {
         .authorizeHttpRequests(authorize -> {
           authorize.requestMatchers("/api/v1/accounts/register", "/api/v1/accounts/verify",
                   "/api/v1/auth", "/api/v1/accounts/drop-password",
-                  "/api/v1/accounts/drop-password/verify")
+                  "/api/v1/verification/accounts/*")
               .anonymous();
           authorize.requestMatchers("/swagger-ui/*", "/v3/api-docs", "/v3/api-docs.yaml",
                   "/v3/api-docs/*")

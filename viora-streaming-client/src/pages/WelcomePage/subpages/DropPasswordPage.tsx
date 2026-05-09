@@ -7,7 +7,7 @@ import {useResetPassword} from "../../../hooks/passwordHooks.ts";
 
 export function DropPasswordPage() {
   const navigate = useNavigate();
-  const {resetPassword, isPending} = useResetPassword();
+  const {mutate: resetPassword, isPending} = useResetPassword();
 
   const onSubmit = (password: string) => {
     resetPassword(password);

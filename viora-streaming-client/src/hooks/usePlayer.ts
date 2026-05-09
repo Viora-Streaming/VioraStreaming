@@ -7,7 +7,7 @@ interface UsePlayerResult {
   imdbId: string | undefined;
   title: string | undefined;
   isLoading: boolean;
-  history?: History;
+  history?: History | null;
 }
 
 export const usePlayer = (id: number): UsePlayerResult => {

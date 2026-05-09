@@ -1,6 +1,6 @@
 import {useParams, useNavigate} from "react-router";
 import {useMovie} from "../../hooks/useMovie.ts";
-import {Box, Button, Chip, Stack, Typography} from "@mui/material";
+import {Box, Button, Chip, CircularProgress, Stack, Typography} from "@mui/material";
 import type {MovieDetails, Person} from "../../types/movieTypes.ts";
 import AddIcon from "@mui/icons-material/Add";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
@@ -12,8 +12,12 @@ export function MovieDetailsPage() {
   const navigate = useNavigate();
   const {movie, isLoading} = useMovie(Number(id));
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (isLoading || !movie) {
+    return (
+        <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh"}}>
+          <CircularProgress />
+        </Box>
+    );
   }
 
   const handlePlay = () => {
@@ -24,7 +28,7 @@ export function MovieDetailsPage() {
       <Box sx={{py: "50px", px: "48px"}}>
         <Stack spacing="64px" sx={{maxWidth: "1280px", margin: "0 auto"}}>
           <MovieDetails movie={movie} onPlay={handlePlay}/>
-          <MovieCast actors={movie.actors}/>
+          <MovieCast actors={movie?.actors ?? []}/>
         </Stack>
       </Box>
   );
@@ -176,7 +180,7 @@ type ActorCardProps = { actor: Person };
 
 function ActorCard({actor}: ActorCardProps) {
   return (
-      <Stack spacing="16px" direction="column" alignItems="center">
+      <Stack spacing="16px">
         <Box
             sx={{
               height: "205px",

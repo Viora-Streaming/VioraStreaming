@@ -1,6 +1,5 @@
-package org.viora.viorastreamingcore.account.service;
+package org.viora.viorastreamingcore.account.service.impl;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,50 +11,36 @@ import org.viora.viorastreamingcore.account.exception.AccountAlreadyExistsExcept
 import org.viora.viorastreamingcore.account.exception.AccountNotFoundException;
 import org.viora.viorastreamingcore.account.model.AccountModel;
 import org.viora.viorastreamingcore.account.repository.AccountRepository;
+import org.viora.viorastreamingcore.account.service.RegisterUserUseCase;
+import org.viora.viorastreamingcore.account.service.UpdateAccountUseCase;
 import org.viora.viorastreamingcore.configs.security.SecurityHelpers;
+import org.viora.viorastreamingcore.verification.dto.VerificationType;
+import org.viora.viorastreamingcore.verification.service.VerificationService;
 
 @Service
 @RequiredArgsConstructor
-public class UserManagementService implements RegisterUserUseCase, GetUserAccountUseCase,
-    UpdateAccountUseCase {
+public class UserManagementService implements RegisterUserUseCase, UpdateAccountUseCase {
 
   private final AccountRepository accountRepository;
-  private final VerifyUserAccountUseCase verifyUserAccountUseCase;
+  private final VerificationService verificationService;
   private final PasswordEncoder passwordEncoder;
   private final SecurityHelpers securityHelpers;
 
-  @Transactional
   @Override
   public Account registerUser(RegisterUserRequest request) {
-    if (accountRepository.existsByLogin(request.email())) {
+    if (accountRepository.existsByEmail(request.email())) {
       throw new AccountAlreadyExistsException(
           "Account with email " + request.email() + " already exists");
     }
     AccountModel model = AccountModel.builder()
-        .login(request.email())
+        .email(request.email())
         .password(passwordEncoder.encode(request.password()))
         .enabled(false)
         .build();
-    verifyUserAccountUseCase.sendVerificationForAccount(mapToAccount(model));
+
+    verificationService.sendVerification(VerificationType.VERIFY_EMAIL, mapToAccountDto(model));
     model = accountRepository.save(model);
     return mapToAccount(model);
-  }
-
-  @Override
-  public Account findAccountByLogin(String login) {
-    return accountRepository.findByLogin(login)
-        .map(this::mapToAccount)
-        .orElseThrow(
-            () -> new AccountNotFoundException("Account with email " + login + " not found"));
-  }
-
-  @Override
-  public AccountDto getUserAccount() {
-    AccountModel model = accountRepository.findById(
-            securityHelpers.getCurrentlyAuthenticatedAccountId())
-        .orElseThrow(() -> new AccountNotFoundException("Account not verified"));
-
-    return mapToAccountDto(model);
   }
 
   @Override
@@ -66,7 +51,7 @@ public class UserManagementService implements RegisterUserUseCase, GetUserAccoun
 
     AccountModel accountModel = AccountModel.builder()
         .id(model.getId())
-        .login(model.getLogin())
+        .email(model.getEmail())
         .fullName(request.fullName())
         .bio(request.bio())
         .password(model.getPassword())
@@ -84,13 +69,14 @@ public class UserManagementService implements RegisterUserUseCase, GetUserAccoun
 
   private AccountDto mapToAccountDto(AccountModel model) {
     return AccountDto.builder()
-        .email(model.getLogin())
+        .email(model.getEmail())
         .fullName(model.getFullName())
         .bio(model.getBio())
         .build();
   }
 
   private Account mapToAccount(AccountModel model) {
-    return new Account(model.getId(), model.getLogin(), model.getPassword());
+    return new Account(model.getId(), model.getEmail(), model.getPassword());
   }
+
 }
