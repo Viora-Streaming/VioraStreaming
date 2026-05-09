@@ -5,7 +5,7 @@ import {SEGMENT_DURATION_SECONDS} from "../utils/historyHelpers.ts";
 
 interface UseHlsOptions {
   src: string;
-  videoRef: React.RefObject<HTMLVideoElement>;
+  videoRef: React.RefObject<HTMLVideoElement | null>;
   startFrom?: number;
 }
 

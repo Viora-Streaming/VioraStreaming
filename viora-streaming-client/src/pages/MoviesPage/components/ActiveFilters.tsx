@@ -33,7 +33,7 @@ export function ActiveFilters() {
         {genres.map((genre) => (
             <Chip
                 key={genre}
-                label={GENRES.find(g => g.id === genre).name}
+                label={GENRES.find(g => g.id === genre)?.name}
                 deleteIcon={deleteIcon}
                 onDelete={() => dispatch(setGenres(genres.filter((g) => g !== genre)))}
                 sx={chipSx}

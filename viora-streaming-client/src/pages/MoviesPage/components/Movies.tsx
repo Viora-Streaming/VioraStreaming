@@ -1,4 +1,4 @@
-import {Box, Chip, Grid, Stack, Typography} from "@mui/material";
+import {Box, Chip, Grid, Typography} from "@mui/material";
 import type {MovieSummary} from "../../../types/movieTypes.ts";
 import {useTheme} from "@mui/material/styles";
 import {useNavigate} from "react-router-dom";

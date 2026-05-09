@@ -18,7 +18,6 @@ export function EmptyHistoryPage({onBrowse}: EmptyHistoryPageProps) {
           }}
       >
         <Box
-            alt="No movies match found"
             sx={{
               display: "flex",
               justifyContent: "center",

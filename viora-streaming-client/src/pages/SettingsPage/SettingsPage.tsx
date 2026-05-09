@@ -4,9 +4,6 @@ import { SettingHeaderSection } from "./components/SettingsHeaderSection.tsx";
 import { SettingsBodySection } from "./components/SettingsBodySection.tsx";
 import { SettingsBottomSection } from "./components/SettingsBottomSection.tsx";
 import { useEffect, useState } from "react";
-import {
-  DeleteAccountModal
-} from "../../components/Modals/DeleteAccountModal/DeleteAccountModal.tsx";
 
 export function SettingsPage() {
   const { account, updateAccount, onDelete } = useAccount();

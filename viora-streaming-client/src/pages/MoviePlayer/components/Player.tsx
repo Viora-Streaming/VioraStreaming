@@ -362,7 +362,7 @@ export function Player({
                   />
                 </Stack>
 
-                <Box flex={1}/>
+                <Box sx={{flex: 1}}/>
 
                 <Tooltip title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}>
                   <IconButton onClick={toggleFullscreen} sx={bottomBtnSx}>

@@ -17,10 +17,10 @@ export function SettingsField({
                                 label,
                                 placeholder,
                                 value,
-                                onChange,
+                                onChange = () => {
+                                },
                                 onBlur,
                                 name,
-                                type = 'text',
                                 disabled
                               }: SettingsFieldProps) {
   return (
@@ -47,7 +47,6 @@ export function SettingsField({
             }}
         >
           <InputBase
-              type={type}
               name={name}
               placeholder={placeholder}
               value={value}

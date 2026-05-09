@@ -12,7 +12,7 @@ export function MovieDetailsPage() {
   const navigate = useNavigate();
   const {movie, isLoading} = useMovie(Number(id));
 
-  if (isLoading) {
+  if (isLoading || !movie) {
     return <div>Loading...</div>;
   }
 
@@ -24,7 +24,7 @@ export function MovieDetailsPage() {
       <Box sx={{py: "50px", px: "48px"}}>
         <Stack spacing="64px" sx={{maxWidth: "1280px", margin: "0 auto"}}>
           <MovieDetails movie={movie} onPlay={handlePlay}/>
-          <MovieCast actors={movie.actors}/>
+          <MovieCast actors={movie?.actors ?? []}/>
         </Stack>
       </Box>
   );
@@ -176,7 +176,7 @@ type ActorCardProps = { actor: Person };
 
 function ActorCard({actor}: ActorCardProps) {
   return (
-      <Stack spacing="16px" direction="column" alignItems="center">
+      <Stack spacing="16px">
         <Box
             sx={{
               height: "205px",

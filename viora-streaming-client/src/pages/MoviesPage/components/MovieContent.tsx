@@ -1,8 +1,5 @@
-import {Box, Typography, Stack, Chip, Button, Grid, CircularProgress} from "@mui/material";
-import ClearIcon from '@mui/icons-material/Clear';
-import NoMoviesImg from "../../../assets/no-movies.png";
+import {Box, Typography, CircularProgress, Skeleton} from "@mui/material";
 import {useInfiniteMovies} from "../../../hooks/useMovies.ts";
-import {useFilterPanel} from "../../../hooks/useFilterPanel.ts";
 import {ActiveFilters} from "./ActiveFilters.tsx";
 import {Movies} from "./Movies.tsx";
 import {TrendingMovies} from "./TrendingMovies.tsx";
@@ -16,13 +13,16 @@ export function MovieContent() {
 
         <Movies movies={movies}/>
 
+        {isLoading && movies.length === 0 && (
+            <MovieSkeletons count={10} />
+        )}
+
         {movies.length === 0 && !isLoading && (
             <TrendingMovies />
         )}
 
-        {/* ← Sentinel: hook watches this div */}
         <Box ref={loaderRef} sx={{py: "32px", display: "flex", justifyContent: "center"}}>
-          {isLoading && <CircularProgress size={28}/>}
+          {isLoading && movies.length > 0 && <CircularProgress size={28}/>}
           {isError && (
               <Typography color="error">Failed to load movies. Please try again.</Typography>
           )}
@@ -31,6 +31,20 @@ export function MovieContent() {
           )}
         </Box>
 
+      </Box>
+  );
+}
+
+function MovieSkeletons({ count }: { count: number }) {
+  return (
+      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
+        {Array.from({ length: count }).map((_, i) => (
+            <Box key={i} sx={{ width: 200 }}>
+              <Skeleton variant="rounded" width={200} height={300} />
+              <Skeleton variant="text" sx={{ mt: 1 }} width="80%" />
+              <Skeleton variant="text" width="50%" />
+            </Box>
+        ))}
       </Box>
   );
 }

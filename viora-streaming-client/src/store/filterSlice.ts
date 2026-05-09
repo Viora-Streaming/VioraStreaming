@@ -4,7 +4,6 @@ import {
   DEFAULT_RATING,
   DEFAULT_RELEASE_YEAR,
 } from "../constants/filterConstants.ts";
-import type { RootState } from "./store.ts";
 
 export interface FiltersState {
   genres: number[];

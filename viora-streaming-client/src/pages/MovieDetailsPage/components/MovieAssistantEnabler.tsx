@@ -33,17 +33,17 @@ export function MovieAssistantEnabler({content, onButtonClick}: MovieAssistantEn
         </Stack>
 
         <Typography variant="body2">
-          Have questions about the complex timeline of "The Architects
-          of Time"?
-          Our AI can explain the paradoxes or help you find similar mind-bending
-          sci-fi.
+          {content ?? "Have questions about the complex timeline of \"The Architects\n" +
+              "          of Time\"?\n" +
+              "          Our AI can explain the paradoxes or help you find similar mind-bending\n" +
+              "          sci-fi."}
         </Typography>
 
         <Button variant="contained" sx={{
           textTransform: "none",
           fontWeight: "bold",
           borderRadius: "8px",
-        }}>
+        }} onClick={onButtonClick}>
           Discuss with AI
         </Button>
 
