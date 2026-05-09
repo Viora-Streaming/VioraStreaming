@@ -1,21 +1,17 @@
-import type {MovieDetails} from "../types/movieTypes.ts";
-import {fetchMovieById} from "../api/contentApi.ts";
-import {useCallback, useEffect, useState} from "react";
+import type { MovieDetails } from "../types/movieTypes.ts";
+import { fetchMovieById } from "../api/contentApi.ts";
+import { useQuery } from "@tanstack/react-query";
+
+export const movieKeys = {
+  all: ["movies"] as const,
+  detail: (id: number) => ["movies", id] as const,
+};
 
 export function useMovie(id: number) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [movie, setMovie] = useState<MovieDetails | null>(null);
+  const { data: movie = null, isLoading } = useQuery({
+    queryKey: movieKeys.detail(id),
+    queryFn: () => fetchMovieById(id),
+  });
 
-  const fetchMovie = useCallback(async (id: number) => {
-    const movie = await fetchMovieById(id);
-    setIsLoading(false);
-    return movie;
-  }, []);
-
-  useEffect(() => {
-    fetchMovie(id).then(resp => setMovie(resp));
-  }, []);
-
-
-  return {movie, isLoading}
+  return { movie: movie as MovieDetails | null, isLoading };
 }

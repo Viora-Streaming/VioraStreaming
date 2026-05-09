@@ -1,41 +1,26 @@
-import {useCallback, useLayoutEffect, useState} from "react";
-import {getHistoryByMovie, getUserHistories} from "../api/historyApi.ts";
-import type {History} from "../types/historyTypes.ts";
+import { useQuery } from "@tanstack/react-query";
+import { getHistoryByMovie, getUserHistories } from "../api/historyApi.ts";
+import type { History } from "../types/historyTypes.ts";
+
+export const historyKeys = {
+  all: ["history"] as const,
+  byMovie: (movieId: number) => ["history", "movie", movieId] as const,
+};
 
 export const useHistory = () => {
+  const { data: histories = [], isLoading } = useQuery({
+    queryKey: historyKeys.all,
+    queryFn: getUserHistories,
+  });
 
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [histories, setHistories] = useState<History[]>([]);
-
-
-  const fetchHistories = useCallback(async () => {
-    const fetchedHistories = await getUserHistories();
-    setHistories(fetchedHistories);
-    setIsLoading(false);
-  }, []);
-
-  useLayoutEffect(() => {
-    fetchHistories();
-  }, []);
-
-  return {histories, isLoading}
-}
+  return { histories: histories as History[], isLoading };
+};
 
 export const useHistoryByMovie = (movieId: number) => {
+  const { data: history = null, isLoading } = useQuery({
+    queryKey: historyKeys.byMovie(movieId),
+    queryFn: () => getHistoryByMovie(movieId),
+  });
 
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [history, setHistory] = useState<History>(null);
-
-
-  const fetchHistories = useCallback(async () => {
-    const fetchedHistory = await getHistoryByMovie(movieId);
-    setHistory(fetchedHistory);
-    setIsLoading(false);
-  }, []);
-
-  useLayoutEffect(() => {
-    fetchHistories();
-  }, []);
-
-  return {history, isLoading}
-}
+  return { history: history as History | null, isLoading };
+};
