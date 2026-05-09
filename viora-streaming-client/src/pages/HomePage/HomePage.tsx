@@ -1,4 +1,4 @@
-import {Stack, Typography, Link, Box, Grid} from "@mui/material";
+import {Stack, Typography, Link, Box, Grid, CircularProgress} from "@mui/material";
 import {useTrendingMovies} from "../../hooks/useMovies.ts";
 import {useHistory} from "../../hooks/useHistory.ts";
 import {IntroMovie} from "./components/IntroMovie.tsx";
@@ -17,7 +17,11 @@ export default function HomePage() {
   const {histories, isLoading: historyLoading} = useHistory();
 
   if (isLoading || historyLoading) {
-    return <div>Loading...</div>;
+    return (
+        <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh"}}>
+          <CircularProgress />
+        </Box>
+    );
   }
 
   return (

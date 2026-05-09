@@ -1,6 +1,6 @@
 import {useParams, useNavigate} from "react-router";
 import {useMovie} from "../../hooks/useMovie.ts";
-import {Box, Button, Chip, Stack, Typography} from "@mui/material";
+import {Box, Button, Chip, CircularProgress, Stack, Typography} from "@mui/material";
 import type {MovieDetails, Person} from "../../types/movieTypes.ts";
 import AddIcon from "@mui/icons-material/Add";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
@@ -13,7 +13,11 @@ export function MovieDetailsPage() {
   const {movie, isLoading} = useMovie(Number(id));
 
   if (isLoading || !movie) {
-    return <div>Loading...</div>;
+    return (
+        <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh"}}>
+          <CircularProgress />
+        </Box>
+    );
   }
 
   const handlePlay = () => {
