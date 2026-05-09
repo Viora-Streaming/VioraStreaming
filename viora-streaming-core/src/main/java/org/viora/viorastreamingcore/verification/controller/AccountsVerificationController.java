@@ -1,4 +1,4 @@
-package org.viora.viorastreamingcore.account.controller;
+package org.viora.viorastreamingcore.verification.controller;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -6,32 +6,35 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.viora.viorastreamingcore.account.service.VerifyUserAccountUseCase;
+import org.springframework.web.bind.annotation.RestController;
+import org.viora.viorastreamingcore.verification.dto.VerificationType;
+import org.viora.viorastreamingcore.verification.service.VerificationService;
+
+import static org.viora.viorastreamingcore.account.controller.DropPasswordController.DROP_PASSWORD_TOKEN;
 
 @Controller
+@RequestMapping("/api/v1/verification/accounts")
 @RequiredArgsConstructor
-public class VerificationController {
+public class AccountsVerificationController {
 
-  private static final String JWT_TOKEN = "JWT_TOKEN";
-  private static final String DROP_PASSWORD_TOKEN = "DROP_PASSWORD_TOKEN";
-  private final VerifyUserAccountUseCase verifyUserAccountUseCase;
+  private final VerificationService verificationService;
 
-  @GetMapping("/api/v1/accounts/verify")
+  @GetMapping("register")
   public String verifyUserAccount(@RequestParam String token,
-      @Value("${client.register-callback-url}") String callback, HttpServletResponse response) {
-    verifyUserAccountUseCase.verifyUserAccount(token);
-    response.addCookie(new Cookie(JWT_TOKEN, token));
+      @Value("${client.register-callback-url}") String callback) {
+    verificationService.verify(VerificationType.VERIFY_EMAIL, token);
     return "redirect:" + callback;
   }
 
-  @GetMapping("/api/v1/accounts/drop-password/verify")
+  @GetMapping("drop-password")
   public String verifyDropPassword(
       @RequestParam String token,
       @Value("${client.dropped-callback-url}") String callback,
       HttpServletResponse response) {
 
-    verifyUserAccountUseCase.verifyDropPassword(token);
+    verificationService.verify(VerificationType.VERIFY_DROP_PASSWORD, token);
 
     Cookie cookie = new Cookie(DROP_PASSWORD_TOKEN, token);
     cookie.setHttpOnly(true);
@@ -42,5 +45,6 @@ public class VerificationController {
 
     return "redirect:" + callback;
   }
+
 
 }

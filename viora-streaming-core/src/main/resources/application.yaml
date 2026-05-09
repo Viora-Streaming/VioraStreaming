@@ -17,7 +17,7 @@ spring:
       leak-detection-threshold: 60000
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
 
   mail:
@@ -50,10 +50,14 @@ logging:
 
 jwt:
   key: ${JWT_KEY:YzEyMzR0bXZxQzRmNTZ2cEFoUGVpMWdIajU3aWdoZ2g}
-client:
-  register-callback-url: ${CLIENT_CALLBACK_URL:http://localhost/movies}
-  dropped-callback-url: ${CLIENT_DROPPED_CALLBACK_URL:http://localhost/auth/drop-password}
-
 server:
   port: ${SPRING_APP_PORT:8080}
   host: ${SPRING_APP_HOST:localhost}
+
+client:
+  register-callback-url: ${CLIENT_REGISTER_CALLBACK_URL:http://localhost:80/auth}
+  dropped-callback-url: ${CLIENT_DROPPED_CALLBACK_URL:http://localhost:80/auth/drop-password}
+
+verification:
+  register-callback-url: http://${server.host}:${server.port}/api/v1/verification/accounts/register?token=
+  dropped-callback-url: http://${server.host}:${server.port}/api/v1/verification/accounts/drop-password?token=

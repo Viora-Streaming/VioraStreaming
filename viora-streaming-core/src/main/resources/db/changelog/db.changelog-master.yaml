@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db/changelog/23-01-changelog.yaml
   - include:
       file: db/changelog/insert-data-changelog.yaml
+  - include:
+      file: db/changelog/09-01-changelog.yaml
